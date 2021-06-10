@@ -15,8 +15,7 @@ const Livraison = ({setData, data, setShowLocation}) => {
 
  const handleChanged=(e)=>{
   setData({...data, livraison:e.target.value})
-  setShowLocation(data.livraison)
-
+localStorage.setItem('livraison', !data.livraison)
   }
 
 
@@ -41,7 +40,8 @@ setData({...data, [e.target.name]:e.target.value})
     type="Date" 
     name="date" 
     placeholder="date de livraison"
-    onChange={handleDetails}/>
+    onChange={handleDetails}
+    required/>
     <Form>
     <TimePicker
     style={{ width: 100 }}

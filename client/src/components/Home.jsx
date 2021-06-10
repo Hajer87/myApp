@@ -78,10 +78,9 @@ const auth=useSelector(state=>state.AuthReducer)
       {showCart ?
       <Panier setShowCart={setShowCart}/>
     : null}
-     {/*  <Testimonials data={landingPageData.Testimonials} />*/
+     
       <Team data={landingPageData.Team} /> 
-      /*       <Contact data={landingPageData.Contact} />
-       */}{" "}
+      
     </div>
   );
 };

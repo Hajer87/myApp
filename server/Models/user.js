@@ -16,6 +16,15 @@ const userSchema = mongoose.Schema(
     isAdmin: {
       type: Boolean, required: true, default: false
     },
+    ville:{
+      type: String, required:true
+    },
+    city:{
+      type: String, required:true
+    },
+    codePostal:{
+      type:Number, required:true
+    },
     commandes:[{
       type: mongoose.Types.ObjectId,
       ref: "order",

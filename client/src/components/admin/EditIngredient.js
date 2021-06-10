@@ -17,7 +17,7 @@ import { VscZoomIn } from "react-icons/vsc";
  function EditIngredient({ingredient}) {
   const [open, setOpen] = React.useState(false);
   const [image, setImage]=useState(null)
-  const [info, setInfo] = useState(null);
+  const [info, setInfo] = useState('');
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -44,11 +44,9 @@ const dispatch = useDispatch();
     setInfo({ ...info, [e.target.name]: e.target.value });
     
   };
- console.log(ingredient._id)
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(info)
-    dispatch(updateIngredient(info, ingredient._id)); 
+    dispatch(updateIngredient(ingredient._id,info, image )); 
     dispatch(getIngredients())
     setOpen(false)
   };
@@ -57,11 +55,11 @@ const dispatch = useDispatch();
   return (
     <div>
         
-      <Button  variant="secondary" size="lg" block onClick={handleClickOpen}>
-      <VscZoomIn/>
-      </Button>
+      
+      <VscZoomIn onClick={handleClickOpen} />
+      
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        
         <DialogContent>
           
           <TextField
@@ -77,7 +75,7 @@ const dispatch = useDispatch();
           />
 
 
-{/* <TextField
+ <TextField
             autoFocus
             name="description"
             margin="dense"
@@ -125,7 +123,7 @@ const dispatch = useDispatch();
             label="upload image"
            
             onChange={selectImageToUpload}
-          /> */}
+          /> 
 
         </DialogContent>
         <DialogActions>

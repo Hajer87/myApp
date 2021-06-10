@@ -109,7 +109,7 @@ export default function AddCategory() {
       >
         <DialogTitle id="form-dialog-title">Ajouter une category</DialogTitle>
         <DialogContent>
-          <DialogContentText>Ajouter le nom de la catégory</DialogContentText>
+          
           <TextField
             autoFocus
             margin="dense"
@@ -127,7 +127,7 @@ export default function AddCategory() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
+            Annuler
           </Button>
           <Button onClick={submitHandler} color="primary">
            Enregistrer

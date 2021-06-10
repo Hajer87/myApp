@@ -34,7 +34,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { firstname, lastname, email,  password } = req.body;
+    const { firstname, lastname, city, ville, codePostal, email,  password } = req.body;
     
     try {
       // verify if user exists
@@ -54,6 +54,9 @@ router.post(
         firstname,
         lastname,
         email,
+        city,
+        codePostal,
+        ville,
         avatar,
         password,
       });

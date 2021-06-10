@@ -12,6 +12,8 @@ GET_ALL_INGREDIENT_SUCESS,
 ADD_INGREDIENT_LOADING,
 GET_ALL_INGREDIENT_LOADING,
 UPDATE_INGREDIENT_SUCCESS,
+UPDATE_INGREDIENT_FAILED,
+UPDATE_INGREDIENT_LOADING,
  } from "../Actions/types"
 
 const initialState={
@@ -32,19 +34,22 @@ return { ...state, isLoading: false, ingredients: state.ingredients.filter(el=>e
 case GET_INGREDIENT_SUCESS: 
 return { ... state, ingredients: action.payload}
 case UPDATE_INGREDIENT_SUCCESS:
-return console.log(action.payload)
+return {...state, isLoading:false, ingredients: state.ingredients.map((el)=>el._id==action.payload._id? action.payload:el)}
+
 
 
 case ADD_INGREDIENT_FAILED:
 case DELETE_INGREDIENT_FAILED:
 case GET_ALL_INGREDIENT_FAILED:
 case GET_INGREDIENT_FAILED:
+case UPDATE_INGREDIENT_FAILED:
                          return { ... state, isLoading: false, errors:action.payload}
                      
 case ADD_INGREDIENT_LOADING:
 case DELETE_INGREDIENT_LOADING:
 case GET_ALL_INGREDIENT_LOADING:
 case GET_INGREDIENT_LOADING:
+case UPDATE_INGREDIENT_LOADING:
                          return {...state,isLoading: true };   
 default: 
 return state;  

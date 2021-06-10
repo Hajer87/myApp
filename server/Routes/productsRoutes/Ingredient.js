@@ -84,7 +84,7 @@ router.get("/:id", async (req, res) => {
     res.status(500).send("server error");
   }
 });
-// delete category
+// delete ingredient
 router.delete('/:id', authAdmin, async (req,res)=>{
 
   try{  
@@ -101,26 +101,22 @@ router.delete('/:id', authAdmin, async (req,res)=>{
     res.status(500).send("server error");
 }
 })
-// update ingredient
+ // update ingredient
 router.put('/:id',authAdmin, upload.single('image'), async (req,res)=>{
   try{
-
-
-
-/* {const body=JSON.parse(req.body.info)
-const path=`${req.protocol}://${req.get('host')}/uploads/ingredients/${req.file.filename}`
-await Ingredient.findByIdAndUpdate({_id: req.params.id},{name:body.name, description: body.description, price: body.price, category:body.category, image:path, _id: req.params.id})
-res.status(200).json('updated')
-} */
-
-await Ingredient.findByIdAndUpdate({_id: req.params.id},{name:req.body.name})
-res.status(200).json('updated')
-
-  }catch(err) {
-    console.log(err.message)
-            res.status(500).send({message: "server error"});
-          };
-  });
+console.log((req.body))
+   
+const body = req.file ?
+    {
+      ...JSON.parse(req.body.info),
+      image: `${req.protocol}://${req.get('host')}/uploads/ingredients/${req.file.filename}`
+    } : { ...req.body };
+  Ingredient.findByIdAndUpdate({ _id: req.params.id }, {$set: body  }, {new:true})
+    .then(() => res.status(200).json({ message: 'Ingredient modifié !'}))
+  }catch (err) {
+    console.log(err.message);
+    res.status(500).send("server error");
+  }}) 
 
 // get all categories
 router.get("/", async (req, res) => {

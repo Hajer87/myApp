@@ -15,10 +15,12 @@ tel:String,
 address:String,
 livraison:String,
 total:Number,
- delivred: {
-   type:String,
-   default: "false"
+isDelivered: {
+  type: Boolean, required: true, default: false
 },
+deliveredAt: {
+  type: Date
+}
 
   },
   { timestamps: true }

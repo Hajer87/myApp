@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useDispatch } from "react-redux";
 import {  updateOrders } from "../../Redux/Actions/Orders/order";
@@ -6,13 +6,15 @@ import { Button } from "react-bootstrap";
 
 const ButtonStatus = ({stat, id}) => {
                          const dispatch=useDispatch()
-  console.log(stat)
-  console.log(id)
+                         const [status, setStatus]=useState({
+                           delivred: stat
+                         })
+
   
   return (
     <div>
 
-      <Button onClick={dispatch(updateOrders({ stat}))}>{stat}</Button>
+      <Button onClick={dispatch(updateOrders({_id:id, status}))}>{stat}</Button>
     </div>
   );
 };

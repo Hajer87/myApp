@@ -47,8 +47,7 @@ export default function Total({ setData, data}) {
   const array=panier.commandes.map((cmd)=>cmd.map((el)=>el.name))
   console.log(array)  */
   useEffect(() => {
-/*     dispatch(updateCommande(array))
- */
+const livraison=localStorage.getItem('livraison')
     dispatch(getShippingPrice());
   }, [dispatch]);
 
@@ -70,10 +69,8 @@ export default function Total({ setData, data}) {
       
       
       dispatch(addDetails(data))
-      const address=localStorage.getItem('address')
-      dispatch(addAddress(address))
+      
       localStorage.setItem('data', JSON.stringify(data))
-      /* dispatch(updateCommande(array)) */
       
         setOpen(false);
         history.push("/checkout")
@@ -85,7 +82,6 @@ export default function Total({ setData, data}) {
    
   
 
-  const address = JSON.parse(localStorage.getItem("address"));
   return (
     <div>
       <Button variant="secondary" size="lg" block onClick={()=>handleClickOpen(data)}>
@@ -146,13 +142,6 @@ export default function Total({ setData, data}) {
           ) : (
             <>
               <div className="boxTotal">
-                <h2>Frais de livraison:</h2>
-                <span>
-                  {" "}
-                  0.00 <span>DT</span>
-                </span>
-              </div>
-              <div className="boxTotal">
                 <h2>Total:</h2>
                 <span>
                   {price}.00 <span>DT</span>
@@ -172,12 +161,7 @@ export default function Total({ setData, data}) {
             <span>{`Le ${data.date} à ${data.heure}`}</span>
           </div>
           <Divider />
-          {address ? (
-            <div className="boxTotal">
-              <h2>adresse de livraison:</h2>
-              <span>{`${address.locality}-${address.streetAddress}-${address.postalcode}`}</span>
-            </div>
-          ) : null}
+          
  
         </List>
       </Dialog>

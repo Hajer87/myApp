@@ -6,7 +6,6 @@ import "../../assets/style/panier.css";
 import { Link, useHistory } from "react-router-dom";
 import FicheCommande from "./FicheCommande";
 import Livraison from "./Livraison";
-import Localisation from "./Localisation";
 import Total from "./Total";
 
 import {
@@ -14,10 +13,8 @@ import {
   addDetails,
   addAddress,
 } from "../../Redux/Actions/Orders/commandeActions";
-import { Button, Divider } from "@material-ui/core";
 import { addOrder } from "../../Redux/Actions/Orders/order";
 import Navigation from "../LandingPag.js/navigation";
-import { load_user } from "../../Redux/Actions/AuthActions";
 
 const Panier = ({ setShowCart }) => {
   const panier = useSelector((state) => state.commandeReducer.commandes);
@@ -25,9 +22,9 @@ const Panier = ({ setShowCart }) => {
   
   const dispatch = useDispatch();
 
-  /*  useEffect(() => {
+    useEffect(() => {
   localStorage.setItem('commandes', JSON.stringify(panier))
-  }, [panier])  */
+  }, [])  
   /* const cart=useSelector(state=>state.commandeReducer) */
   const [showLocation, setShowLocation] = useState(false);
   const history = useHistory();
@@ -82,7 +79,7 @@ const Panier = ({ setShowCart }) => {
               data={data}
               setData={setData}
             />
-           {/* <Localisation />  */}
+          
 
             <Total data={data} setData={setData} />
           </>

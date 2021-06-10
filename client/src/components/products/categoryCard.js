@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {getIngredients} from "../../Redux/Actions/ingredientActions";
 import '../../assets/style/category.css'
 import { makeStyles } from '@material-ui/core/styles'
@@ -8,6 +8,7 @@ import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles({
   root: {
@@ -18,14 +19,19 @@ const useStyles = makeStyles({
 export default function CategoryCard ({category, open , setOpen,  setData, data }) {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const auth=useSelector(state=>state.AuthReducer.isAuth)
+  const history=useHistory()
   useEffect(() => {
 
     dispatch(getIngredients())
   }, [dispatch])
   const image = category.image
   const handleClick=()=>{
-    setOpen(true);
-    setData(category);
+    if(auth)
+    {setOpen(true);
+    setData(category);}
+    else 
+    history.push('/login')
   }
   return (
     < div className='cardd'>

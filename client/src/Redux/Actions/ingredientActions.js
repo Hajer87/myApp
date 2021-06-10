@@ -107,18 +107,18 @@ export const getIngredient = (ingId) => async (dispatch) => {
   }
 };
  
-export const updateIngredient=(id, info)=> async (dispatch)=>{
+export const updateIngredient=(id, info, image)=> async (dispatch)=>{
 setAuthToken()
 try {
   dispatch({
     type: UPDATE_INGREDIENT_LOADING,
   });
-  /* const formData = new FormData()
+  const formData = new FormData()
     formData.append('info', JSON.stringify(info))
-    formData.append('image', image) */
+    formData.append('image', image) 
     
-
-  const response = await axios.put(`http://localhost:5000/ingredients/${id}`,info, id);
+console.log(formData)
+  const response = await axios.put(`http://localhost:5000/ingredients/${id}`,formData);
   console.log(response)
   dispatch({
     type: UPDATE_INGREDIENT_SUCCESS,

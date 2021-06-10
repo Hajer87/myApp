@@ -91,18 +91,22 @@ router.delete('/:id', authAdmin, async (req,res)=>{
     res.status(500).send("server error");
 }
 })
-// update category
-router.put('/:id', authAdmin, async (req,res)=>{
+// update Catégory
+router.put('/:id',authAdmin, upload.single('image'), async (req,res)=>{
   try{
-    const filter={id: req.params.id}
-    const update= req.body 
-  await Categories.findByIdAndUpdate(filter, update, {new: true} )
-  res.status(200).json('category updated')
-  }catch(err) {
-    console.log(err.message)
-            res.status(500).send({message: "server error"});
-          };
-  });
+console.log((req.body))
+   
+const body = req.file ?
+    {
+      ...JSON.parse(req.body.info),
+      image: `${req.protocol}://${req.get('host')}/uploads/categories/${req.file.filename}`
+    } : { ...req.body };
+  Categories.findByIdAndUpdate({ _id: req.params.id }, {$set: body  }, {new:true})
+    .then(() => res.status(200).json({ message: 'Category  modifié !'}))
+  }catch (err) {
+    console.log(err.message);
+    res.status(500).send("server error");
+  }}) 
 
 // get all categories
 router.get("/", async (req, res) => {

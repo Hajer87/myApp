@@ -3,7 +3,8 @@
 import {Link, useHistory} from 'react-router-dom'
 import { useDispatch, useSelector} from 'react-redux'
 import { log_out } from "../../Redux/Actions/AuthActions";
-
+import { BsBoxArrowRight, BsHouseDoor } from "react-icons/bs";
+import { FaCartPlus } from "react-icons/fa";
 
  const Navigation = (props) => {
   const dispatch = useDispatch()
@@ -20,7 +21,7 @@ import { log_out } from "../../Redux/Actions/AuthActions";
             data-toggle='collapse'
             data-target='#bs-example-navbar-collapse-1'
           >
-            {' '}
+            
             <span className='sr-only'>Toggle navigation</span>{' '}
             <span className='icon-bar'></span>{' '}
             <span className='icon-bar'></span>{' '}
@@ -37,23 +38,23 @@ import { log_out } from "../../Redux/Actions/AuthActions";
          
             <li>
               <a href='/' className='page-scroll'>
-                Accueil
+              <BsHouseDoor/>
               </a>
             </li>
             <li>
               <a href='/panier' className='page-scroll'>
-                Panier
+               <FaCartPlus/>
               </a>
             </li>
             
             {(Auth.isAuth)?(
             <>
-            <li><a href='/profile'>My Profile</a></li>
-          <li><Nav.Link onClick={()=>{dispatch(log_out())}} >Log out</Nav.Link></li>
+            
+          <li><Nav.Link onClick={()=>{dispatch(log_out())}} ><BsBoxArrowRight/></Nav.Link></li>
           </>) :
            (<> 
-          <li><a href='/signUp'>SignUp</a></li>
-          <li><a href="/Login">Login</a></li> 
+          <li><a href='/signUp'>Déjà inscrit?</a></li>
+          <li><a href="/Login">se connecter</a></li> 
            </>)}
            { (user)?
            (user.isAdmin) ?
@@ -64,21 +65,8 @@ import { log_out } from "../../Redux/Actions/AuthActions";
                     Dashbord
                   </a>
                   </li>
-                  <li>
-                  <a href="/admin/userlist">
-                    Users
-                  </a>
-                  </li>
-                  <li>
-                  <a href= "/admin/productlist">
-                   Products
-                  </a>
-                  </li>
-                  <li>
-                  <a href="/admin/commandes">
-                    Orders
-                  </a>
-                  </li>
+                
+                  
                 
           </>
           : null

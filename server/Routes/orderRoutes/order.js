@@ -59,17 +59,19 @@ router.get(
   }
 );
 
-router.put("/:id", authAdmin, async (req, res) => {
+  router.put("/:id", authAdmin, async (req, res) => {
   try {
-    const filter = { _id: req.params.id };
-    const update = req.body;
-     await Order.findByIdAndUpdate(filter, {$set:{delivred: req.body}});
-    res.status(200).json('updated');
+    const order = await Order.findById({_id:req.params.id});
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+    const updatedOrder = await order.save();
+    res.json(updatedOrder);}
   } catch (err) {
     console.log(err.message);
     res.status(500).send({ message: "server error" });
   }
-});
+});  
 
 
 router.delete('/:id', authAdmin, async(req,res)=>{

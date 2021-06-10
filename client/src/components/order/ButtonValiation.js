@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCommande } from '../../Redux/Actions/Orders/commandeActions';
 import { resetBol } from '../../Redux/Actions/Orders/content';
 import Button from '@material-ui/core/Button';
@@ -17,27 +17,30 @@ const useStyles = makeStyles((theme) => ({
 const ButtonValiation = ({setOpen, myBol , setShowCart}) => {
   const classes = useStyles();
 const history=useHistory()
+const auth=useSelector(state=>state.AuthReducer.isAuth)
   const dispatch = useDispatch();
-
   const handleValidateBol = (Bol) => {
-     
-/* const bol =myBol.map((el)=>el.name) */
-    dispatch(addCommande(myBol));
-
-    setOpen(false);
-    dispatch(resetBol());
+     if (auth)
+    {dispatch(addCommande(myBol))
+      setOpen(false);
+    dispatch(resetBol());}
+else
+history.push('/login')
+    
   }
 
 
 const save = () => {
- /*  const bol =myBol.map((el)=>el.name, el.price)
-console.log(bol) */
-  dispatch(addCommande(myBol))
+  if (auth)
+  {dispatch(addCommande(myBol))
 
   setOpen(false);
   dispatch(resetBol());
   setShowCart(true)
-  history.push('/panier')
+  history.push('/panier')}
+  else
+  history.push('/login')
+  
 };
   return (
     <div>

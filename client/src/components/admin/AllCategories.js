@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { VscClose, VscZoomIn } from 'react-icons/vsc' 
 import { deleteIngredient, getIngredient, getIngredients } from '../../Redux/Actions/ingredientActions';
 import EditIngredient from './EditIngredient';
+import EditCategory from './EditCaregory';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -88,7 +89,10 @@ export default function AllCategories() {
         className={classes.tabs}
       >
            {(categories)? categories.map((category, index)=> 
+           <>
         <Tab label={category.name} {...a11yProps(index)} />
+        <EditCategory id={category._id}/>
+        </>
         ):null}
         
       </Tabs>
@@ -98,7 +102,7 @@ export default function AllCategories() {
 {category.ingredient.map((el)=>
 <div style={{display:"grid", gridTemplateColumns:"80% 10% 10%", letterSpacing:'10px'}}>
 <h2>{el.name}</h2>
-<EditIngredient ingredient={el}/>
+<EditIngredient ingredient={el}/> 
 <VscClose onClick={()=>deleteHandler(el._id)}/>
 </div>)}
       </TabPanel>

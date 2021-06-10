@@ -48,13 +48,14 @@ const dispatch = useDispatch();
     setData({ ...data, [e.target.name]: e.target.value });
     
   };
-  const handleChangeCategory=(e)=>{
-    setData({...data, category: (categories.find((cat)=>cat.name===e.target.value))._id })
-  }
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createIngredient(data, image)); 
-    dispatch(getIngredients())
+    dispatch(createIngredient(data, image));
+    setTimeout(() => {
+      dispatch(getIngredients())
+    }, 2000); 
+    
     setOpen(false)
   };
   
@@ -90,6 +91,7 @@ Ajouter un ingredient
             type="text"
             onChange={handleChange}
             fullWidth
+            required
           />
 
 
@@ -97,11 +99,12 @@ Ajouter un ingredient
             autoFocus
             name="price"
             margin="dense"
-            id="name"
+            id="price"
             label="prix"
             type="Number"
             onChange={handleChange}
             fullWidth
+            required
           />
 
 <Form.Control
@@ -109,6 +112,7 @@ Ajouter un ingredient
               name="category"
               defaultValue="category"
               onChange={handleChange}
+              required
 
             >
               
@@ -124,17 +128,22 @@ Ajouter un ingredient
             name="image"
             id="image"
             label="upload image"
+            required
             onChange={selectImageToUpload}
           />
 
         </DialogContent>
         <DialogActions>
+          {((data.name) && (data.price) &&(data.category) && image)?
           <Button onClick={handleSubmit} color="primary">
            enregister
           </Button>
+          
+          : null}
           <Button onClick={handleClose} color="primary">
-            sortir
+            annuler
           </Button>
+          
         </DialogActions>
       </Dialog>
     </div>

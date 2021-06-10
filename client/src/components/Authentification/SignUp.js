@@ -1,91 +1,131 @@
 import React, { useState, useEffect } from "react";
+import Navigation from "../LandingPag.js/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Col } from "react-bootstrap";
 import { Register_User } from "../../Redux/Actions/AuthActions";
+import { Container } from "@material-ui/core";
 
-
-const Register = ({history}) => {
+const Register = ({ history }) => {
   const auth = useSelector((state) => state.AuthReducer);
-  localStorage.getItem('isAuth')
+  localStorage.getItem("isAuth");
   const dispatch = useDispatch();
-  const [errors, setErrors]=useState(null)
 
   useEffect(() => {
     if (auth.isAuth) {
-     localStorage.setItem('isAuth', auth.isAuth)
+      localStorage.setItem("isAuth", auth.isAuth);
       history.push("/");
     }
-    if (auth.errors){ setErrors(auth.errors)}
-  },[ auth.isAuth, history, auth.errors]); 
+    
+  }, [auth.isAuth, history, ]);
 
   const [newData, setNewData] = useState({
     firstname: "",
     lastname: "",
+    ville: "",
+    city: "",
+    codePostal: "",
     email: "",
     password: "",
-  }); 
-  
+  });
+
   const handleChange = (e) => {
     setNewData({ ...newData, [e.target.name]: e.target.value });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(Register_User(newData));
-  
   };
   
+
   return (
-    <div>
-      
-     <h1>Register page</h1>
-    
+    <Container>
+      <h2>Inscription</h2>
 
-
-       <Form  className='signup-form' onSubmit={handleSubmit}>
-        <Form.Group onFocus={()=>setErrors(null)} controlId="formBasicFirstname">
-          <Form.Label>Firstname</Form.Label>
+      <Form className="signup-form" onSubmit={handleSubmit}>
+        <Form.Group
+          
+          controlId="formBasicFirstname"
+        >
+          <Form.Label>Prénom</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter your name"
+            placeholder="Prénom"
             name="firstname"
             onChange={handleChange}
+            required
           />
         </Form.Group>
 
-        <Form.Group onFocus={()=>setErrors(null)} controlId="formBasicLasttName">
-          <Form.Label>Lastname</Form.Label>
+        <Form.Group
+          
+          controlId="formBasicLasttName"
+        >
+          <Form.Label>Nom</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter your lastname"
+            placeholder="Nom"
             name="lastname"
             onChange={handleChange}
+            required
           />
         </Form.Group>
-        <Form.Group onFocus={()=>setErrors(null)} controlId="formBasicEmail">
+
+        <Form.Row>
+          <Form.Group as={Col} controlId="formGridCity">
+            <Form.Label>Cité</Form.Label>
+            <Form.Control 
+            type="text"
+            placeholder="Cité"
+            name="city"
+            onChange={handleChange}
+            required/>
+          </Form.Group>
+
+          <Form.Group as={Col} controlId="formGridCity">
+            <Form.Label>Ville</Form.Label>
+            <Form.Control 
+            type="text"
+            placeholder="ville"
+            name="ville"
+            onChange={handleChange}
+            required/>
+          </Form.Group>
+          
+          <Form.Group as={Col} controlId="formGridZip">
+            <Form.Label>Code postal</Form.Label>
+            <Form.Control type="number" name= "codePostal"onChange={handleChange} required />
+          </Form.Group>
+        </Form.Row>
+
+        <Form.Group  controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter you email"
             name="email"
             onChange={handleChange}
+            required
           />
         </Form.Group>
-        <Form.Group onFocus={()=>setErrors(null)} controlId="formBasicPassword">
+        <Form.Group
+         
+          controlId="formBasicPassword"
+        >
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="Password"
             name="password"
             onChange={handleChange}
+            required
           />
         </Form.Group>
-        {errors && errors.map((error)=> <h5>{error.msg}</h5>)} 
+       
         <Button variant="primary" type="submit">
-          Submit
+         Enregistrer
         </Button>
-      </Form> 
-    
-    </div>
+      </Form>
+    </Container>
   );
 };
 

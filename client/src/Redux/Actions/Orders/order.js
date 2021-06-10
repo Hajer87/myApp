@@ -65,16 +65,11 @@ export const getOrders = () => async (dispatch) => {
     dispatch({
       type: UPDATE_ORDER_LOADING,
     });
-    const response = await axios.put(
+    const { data } = await axios.put(
       `http://localhost:5000/orders/${id}`,
-      id,
-      data
+      {} 
     );
-    console.log(response.data);
-    dispatch({
-      type: UPDATE_ORDER_SUCCESS,
-      payload: response.data.orders,
-    });
+    dispatch({ type: UPDATE_ORDER_SUCCESS , payload: data });
   } catch (err) {
     dispatch({
       type: UPDATE_ORDER_FAILED,
@@ -90,7 +85,7 @@ export const deleteOrder = (id) => async (dispatch) => {
       type: DELETE_ORDER_LOADING,
     });
     console.log(id)
-    const response = await axios.delete(`http://localhost:5000/orders/${id}`, id);
+    const response = await axios.delete(`http://localhost:5000/orders/${id}`);
 
     console.log(response);
     dispatch({

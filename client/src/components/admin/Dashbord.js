@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react'
-import { Button, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { getCategories } from '../../Redux/Actions/categoryActions'
 import { getIngredients } from '../../Redux/Actions/ingredientActions'
 import { getOrders } from '../../Redux/Actions/Orders/order'
 import getUsers from '../../Redux/Actions/usersAction'
 import Navigation from '../LandingPag.js/navigation'
-import Categories from './Categories'
-import Commandes from './Commandes'
+
 import Sidebar from './Sidebar'
 
 const Dashboard = () => {

@@ -1,88 +1,10 @@
 {
     "Header": {
 
-        "title": "EAT Healthy ",
-        "paragraph": "Choisis ton bol maintenant!!"
+        "title": "EAT Healthy "
+        
     },
-    "About": {
-        "paragraph": "Bienvenue chez Healthy Bol !",
-        "Why": [
-            "Des produits frais.  ",
-            "Des compositions équilibrées",
-            "Le respect des préferences nutritionnelles",
-            "Ouvert aux demandes des clients"
-        ],
-        "Why2": [
-            "Healthy",
-            "Eco-Responsable",
-            "Authentique",
-            "Des prix raisonnables"
-        ]
-    },
-    "Services": [{
-            "icon": "fa fa-wordpress",
-            "name": "Lorem ipsum dolor",
-            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
-        },
-        {
-            "icon": "fa fa-cart-arrow-down",
-            "name": "Consectetur adipiscing",
-            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
-        },
-        {
-            "icon": "fa fa-cloud-download",
-            "name": "Lorem ipsum dolor",
-            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
-        },
-        {
-            "icon": "fa fa-language",
-            "name": "Consectetur adipiscing",
-            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
-        },
-        {
-            "icon": "fa fa-plane",
-            "name": "Lorem ipsum dolor",
-            "text": "De super produit frais à bon prix, livraison rapide et service très courtois."
-        },
-        {
-            "icon": "fa fa-pie-chart",
-            "name": "Consectetur adipiscing",
-            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
-        }
-
-
-    ],
-    "Testimonials": [{
-            "img": "img/testimonials/01.jpg",
-            "text": "\"Accueil au top, plats frais et de saison. La salade de fruits minute était vraiment très bonne. La salle est petite mais agréable et bien décorée. En plus ils proposent un service de livraison le midi. Je recommande sans hésitation!\"",
-            "name": "John Doe"
-        },
-        {
-            "img": "img/testimonials/02.jpg",
-            "text": "\"Accueil chaleureux, produits frais et recettes savoureuses. À essayer !\"",
-            "name": "Johnathan Doe"
-        },
-        {
-            "img": "img/testimonials/03.jpg",
-            "text": "\" accueil fort sympathique, produits frais, bon pour le moral, que du +++ je recommande sans hésitation.\"",
-            "name": "Jack Doe"
-        },
-        {
-            "img": "img/testimonials/04.jpg",
-            "text": "\" Super adresse pour un lunch\"",
-            "name": "Jane Doe"
-        },
-        {
-            "img": "img/testimonials/05.jpg",
-            "text": "\"  Petit coin au calme à Valbonne au frais pour manger une bonne salade.\"",
-            "name": "John Doe"
-        },
-        {
-            "img": "img/testimonials/06.jpg",
-            "text": "\"Super experience! Les plats étaient très bon et l'accueil très agréable, je recommande.\"",
-            "name": "Juliette Doe"
-        }
-    ],
+    
     "Team": [{
             "img": "img/team/01.jpg",
             "name": "John Doe",
@@ -102,34 +24,6 @@
             "name": "Karen Doe",
             "job": "Restaurant Manager"
         }
-    ],
-    "Contact": {
-        "address": "Sousse sahloul",
-        "phone": "+216 58 66 36 35",
-        "email": "hajerBenzarti@gmail.com",
-        "facebook": "fb.com",
-        "twitter": "twitter.com",
-        "youtube": "youtube.com"
-    },
-    "Features": [{
-            "icon": "fa fa-comments-o",
-            "title": "Lorem ipsum",
-            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
-        },
-        {
-            "icon": "fa fa-bullhorn",
-            "title": "Lorem ipsum",
-            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
-        },
-        {
-            "icon": "fa fa-group",
-            "title": "Lorem ipsum",
-            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
-        },
-        {
-            "icon": "fa fa-magic",
-            "title": "Lorem ipsum",
-            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
-        }
     ]
+    
 }

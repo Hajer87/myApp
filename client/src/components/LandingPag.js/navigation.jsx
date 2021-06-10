@@ -1,83 +1,71 @@
-
- import { Nav, NavDropdown } from 'react-bootstrap';
-import {Link, useHistory} from 'react-router-dom'
-import { useDispatch, useSelector} from 'react-redux'
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import logo from '../../assets/images/logo.png'
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { log_out } from "../../Redux/Actions/AuthActions";
 import { BsBoxArrowRight, BsHouseDoor } from "react-icons/bs";
 import { FaCartPlus } from "react-icons/fa";
 
- const Navigation = (props) => {
-  const dispatch = useDispatch()
-  const history=useHistory()
-   const Auth=useSelector(state=>state.AuthReducer)
-   const user=JSON.parse(localStorage.getItem('user'))
+const Navigation = (props) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const Auth = useSelector((state) => state.AuthReducer);
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
-    <nav id='menu' className='navbar navbar-default navbar-fixed-top'>
-      <div className='container'>
-       {/*  <div className='navbar-header'>
-          <button
-            type='button'
-            className='navbar-toggle collapsed'
-            data-toggle='collapse'
-            data-target='#bs-example-navbar-collapse-1'
-          >
+    <Navbar bg="light" expand="lg">
+        <Navbar.Brand href="#home"><img src={logo} style={{width:"100px", heigth:"100px"}}/></Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+       
+             
+               <Nav.Link href="/" className="page-scroll">
+               Acceuil
+              </Nav.Link>
+          
+            </Nav>
+            <Nav>
             
-            <span className='sr-only'>Toggle navigation</span>{' '}
-            <span className='icon-bar'></span>{' '}
-            <span className='icon-bar'></span>{' '}
-            <span className='icon-bar'></span>{' '}
-          </button>
-           
-        </div> */}
+            <Nav.Link href="/panier" className="page-scroll">
+                <FaCartPlus />
+                </Nav.Link>
+          
 
-        <div
-          className='collapse navbar-collapse'
-          id='bs-example-navbar-collapse-1'
-        >
-          <ul className='nav  navbar-right'>
-         
-            <li>
-              <a href='/' className='page-scroll'>
-              <BsHouseDoor/>
-              </a>
-            </li>
-            <li>
-              <a href='/panier' className='page-scroll'>
-               <FaCartPlus/>
-              </a>
-            </li>
+            {Auth.isAuth ? (
             
-            {(Auth.isAuth)?(
-            <>
-            
-          <li><Nav.Link onClick={()=>{dispatch(log_out())}} ><BsBoxArrowRight/></Nav.Link></li>
-          </>) :
-           (<> 
-          <li><a href='/signUp'>Déjà inscrit?</a></li>
-          <li><a href="/Login">se connecter</a></li> 
-           </>)}
-           { (user)?
-           (user.isAdmin) ?
-           <>
-           <li>
-               
-                  <a href="/admin">
-                    Dashbord
-                  </a>
-                  </li>
                 
+                  <Nav.Link
+                    onClick={() => {
+                      dispatch(log_out());
+                    }}
+                  >
+                    <BsBoxArrowRight />
+                  </Nav.Link>
+                
+              
+            ) : (
+              <>
+              
+                  <Nav.Link href="/signUp">Déjà inscrit?</Nav.Link>
+                
+                
+                  <Nav.Link href="/Login">se connecter</Nav.Link>
+                
+              </>
+            )}
+            {user ? (
+              user.isAdmin ? (
+              
+                  
+                    <Nav.Link href="/admin">Admin</Nav.Link>
                   
                 
-          </>
-          : null
-        :null} 
-           
-              
-          </ul>
-        </div>
-      </div>
-    </nav>
-  )
-  }
-export default Navigation 
-
+              ) : null
+            ) : null}
+          
+        </Nav>
+        </Navbar.Collapse>
+</Navbar>
+  );
+};
+export default Navigation;

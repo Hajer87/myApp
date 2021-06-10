@@ -46,6 +46,7 @@ const auth=useSelector(state=>state.AuthReducer)
   
   return (
     <div>
+      
       <Header data={landingPageData.Header} />
       <CategoryList
         setData={setData}

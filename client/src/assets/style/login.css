@@ -10,6 +10,9 @@ body{
     color: #3a3e42 !important;
    
 }
+.AppForm{
+    margin-top: 100px;
+}
 .AppForm .AppFormLeft h1{
     font-size: 35px;
 }
@@ -29,7 +32,7 @@ body{
     color: #3a3e42 ;
 }
 .AppForm .AppFormLeft button{
-    background: linear-gradient(45deg,#8D334C,#CF6964);
+    background: linear-gradient(45deg,#638d33,#64cbcf);
     border-radius: 30px;
 }
 .AppForm .AppFormLeft p span{
@@ -47,7 +50,7 @@ body{
     position: absolute;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg,#8D334C,#CF6964);
+    background: linear-gradient(45deg,#488d33,#64cfc1);
     opacity: 0.5;
 }
 .AppForm .AppFormRight h2{

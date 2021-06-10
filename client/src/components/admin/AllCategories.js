@@ -5,7 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { deleteCategory, getCategories } from '../../Redux/Actions/categoryActions';
+import { getCategories } from '../../Redux/Actions/categoryActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { VscClose, VscZoomIn } from 'react-icons/vsc' 
 import { deleteIngredient, getIngredient, getIngredients } from '../../Redux/Actions/ingredientActions';
@@ -91,7 +91,7 @@ export default function AllCategories() {
            {(categories)? categories.map((category, index)=> 
            <>
         <Tab label={category.name} {...a11yProps(index)} />
-        <EditCategory id={category._id}/>
+        <EditCategory id={category._id} img={category.image}/>
         </>
         ):null}
         

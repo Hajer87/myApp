@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
+import { FcApproval } from "react-icons/fc";
 
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
@@ -94,8 +95,8 @@ function Commandes() {
             <th>livraison</th>
             <th>address</th>
             <th>total</th>
+            <th>status</th>
             
-            <th>Delivered</th>
             <th>delivred_at</th>
           </tr>
         </thead>
@@ -104,28 +105,27 @@ function Commandes() {
             ? orders.map((order, index) => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
-                  <td>
-                    {order.user.firstname} {order.user.lastname}
-                  </td>
+                  <td>{order.user.firstname} {order.user.lastname}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>
-                    <OrderDetails key={index} order={order} />
-                  </td>
-
+                  <td><OrderDetails key={index} order={order} /></td>
                   <td>{order.date}</td>
                   <td>{order.heure}</td>
                   <td>{order.livraison}</td>
                   <td>{order.user.ville} {order.user.City} {order.user.codePostal}</td>
                   <td>{order.total} DT</td>
-                 <td> <Button style={{backgroundColor: "Transparent"}} onClick={()=>dispatch(updateOrders(order._id))}>
-                      {order.isDelivered}
-                    </Button></td>
+                  <td> <FcApproval onClick={() => dispatch(updateOrders(order._id))}/>
+                      
+                   
+                  </td>
                   <td>
                     {order.isDelivered ? (
                       order.deliveredAt.substring(0, 10)
-                     
                     ) : (
-                      <i className="fas fa-times" style={{ color: "red" }} />
+                      <i
+                        className="fas fa-times"
+                        style={{ color: "red" }}
+                        onClick={() => dispatch(updateOrders(order._id))}
+                      />
                     )}
                   </td>
                   {order.isDelivered ? (

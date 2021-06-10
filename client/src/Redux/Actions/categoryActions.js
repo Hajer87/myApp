@@ -108,9 +108,8 @@ export const updateCategory=(id, info, image)=> async (dispatch)=>{
         formData.append('info', JSON.stringify(info))
         formData.append('image', image) 
         
-    console.log(formData)
+    
       const response = await axios.put(`http://localhost:5000/categories/${id}`,formData);
-      console.log(response)
       dispatch({
         type: UPDATE_CATEGORY_SUCESS,
         payload: response.data,

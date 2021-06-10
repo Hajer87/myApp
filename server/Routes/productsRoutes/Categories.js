@@ -101,7 +101,7 @@ const body = req.file ?
       ...JSON.parse(req.body.info),
       image: `${req.protocol}://${req.get('host')}/uploads/categories/${req.file.filename}`
     } : { ...req.body };
-  Categories.findByIdAndUpdate({ _id: req.params.id }, {$set: body  }, {new:true})
+  Categories.findByIdAndUpdate({ _id: req.params.id }, {$set:body}, {new:true})
     .then(() => res.status(200).json({ message: 'Category  modifié !'}))
   }catch (err) {
     console.log(err.message);

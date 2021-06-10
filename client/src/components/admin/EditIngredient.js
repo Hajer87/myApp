@@ -47,7 +47,9 @@ const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateIngredient(ingredient._id,info, image )); 
-    dispatch(getIngredients())
+    setTimeout(() => {
+      dispatch(getIngredients())                 
+          }, 2000);
     setOpen(false)
   };
   

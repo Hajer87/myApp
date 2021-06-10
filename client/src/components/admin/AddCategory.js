@@ -1,57 +1,4 @@
-/* import React, { useState } from 'react'
-import { Container, Form, Col, Card, Button } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
-import { createCategory } from '../../Redux/Actions/categoryActions'
 
-const AddCategory = ({setOpen}) => {
-
-const dispatch=useDispatch()
-
-const [file, setFile]=useState(null)
-const [info, setInfo]=useState({
-name:""
-})
-const handleChange = (e) => {
-setInfo({ ...info, [e.target.name]: e.target.value })
-}
-const selectImageToUpload=(e)=>{
-setFile(e.target.files[0].name)
-}
-
-const handleSubmit = (e) => {
-e.preventDefault()
-/* dispatch(createCategory(info, file))
-                        
-                       
-
-return (
-<div>  
-<h1>AddCategory</h1>  
-<Container>
-
-<Card>
-  <Card.Header>Add Category</Card.Header>
-  <Card.Body>
-    
-    <Card.Text>
-    
-  <Form.Control size="lg" type="text" placeholder="Category" onChange={handleChange} /> 
-
-  <Form.File id="exampleFormControlFile1" label="" onChange={selectImageToUpload} /> 
-
-    </Card.Text>
-    <Button  onClick={setOpen(false)} variant="primary">valider</Button>
-  </Card.Body>
-</Card>
-
-                         
-
-  </Container>                    
-</div>
-)
-}
-
-export default AddCategory */
 
 import React from "react";
 import { Button, Form } from "react-bootstrap";
@@ -59,12 +6,11 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { createCategory, getCategories } from '../../Redux/Actions/categoryActions'
 
-import axios from "axios";
+
 
 export default function AddCategory() {
   const [open, setOpen] = React.useState(false);

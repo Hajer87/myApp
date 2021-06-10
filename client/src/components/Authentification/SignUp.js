@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
+import '../../assets/style/register.css'
 import Navigation from "../LandingPag.js/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Col } from "react-bootstrap";
 import { Register_User } from "../../Redux/Actions/AuthActions";
-import { Container } from "@material-ui/core";
 
 const Register = ({ history }) => {
   const auth = useSelector((state) => state.AuthReducer);
@@ -38,9 +38,13 @@ const Register = ({ history }) => {
   
 
   return (
-    <Container>
-      <h2>Inscription</h2>
+    <>
+<Navigation/>
+    <div className="box_register">
+     
+      <h2>Inscription</h2> 
 
+    
       <Form className="signup-form" onSubmit={handleSubmit}>
         <Form.Group
           
@@ -111,7 +115,7 @@ const Register = ({ history }) => {
          
           controlId="formBasicPassword"
         >
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Mot de passe</Form.Label>
           <Form.Control
             type="password"
             placeholder="Password"
@@ -121,11 +125,18 @@ const Register = ({ history }) => {
           />
         </Form.Group>
        
-        <Button variant="primary" type="submit">
+        <Button variant="secondary" type="submit">
          Enregistrer
         </Button>
-      </Form>
-    </Container>
+      </Form> 
+    
+
+</div>
+</>
+
+
+
+    
   );
 };
 

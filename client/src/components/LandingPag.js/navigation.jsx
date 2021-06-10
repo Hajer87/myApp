@@ -14,7 +14,7 @@ import { FaCartPlus } from "react-icons/fa";
   return (
     <nav id='menu' className='navbar navbar-default navbar-fixed-top'>
       <div className='container'>
-        <div className='navbar-header'>
+       {/*  <div className='navbar-header'>
           <button
             type='button'
             className='navbar-toggle collapsed'
@@ -28,7 +28,7 @@ import { FaCartPlus } from "react-icons/fa";
             <span className='icon-bar'></span>{' '}
           </button>
            
-        </div>
+        </div> */}
 
         <div
           className='collapse navbar-collapse'

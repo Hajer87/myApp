@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector} from "react-redux";
 import {  load_user,  login_user } from "../../Redux/Actions/AuthActions";
-import {Link, Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import '../../assets/style/login.css'
 import Loading from "../Loading";
+import Navigation from "../LandingPag.js/navigation";
 
 
 
@@ -38,7 +39,8 @@ const Login = ({history}) => {
   }
   
   return (
- 
+ <>
+ <Navigation/>
 <div className="container h-100">
   <div className="row h-100 justify-content-center align-items-center">
     <form className="col-md-9">
@@ -96,7 +98,7 @@ const Login = ({history}) => {
   </div>
 </div>    
 
-
+</>
 );
 };
 

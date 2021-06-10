@@ -13,10 +13,10 @@ import { createCategory, getCategories, updateCategory } from '../../Redux/Actio
 import axios from "axios";
 import { VscZoomIn } from "react-icons/vsc";
 
-export default function EditCategory({id}) {
+export default function EditCategory({id, img}) {
   const [open, setOpen] = React.useState(false);
-  const [info, setInfo] = React.useState('');
-  const [image, setImage] = React.useState("");
+  const [info, setInfo] = React.useState("");
+  const [image, setImage] = React.useState(null);
   const dispatch = useDispatch();
   const categories=useSelector(state=>state.categoryReducer.categories)
   const handleClickOpen = () => {
@@ -35,11 +35,14 @@ export default function EditCategory({id}) {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(updateCategory(id, info, image));
-    dispatch(getCategories())
+    setTimeout(() => {
+dispatch(getCategories())                 
+    }, 2000);
+    
    
     setOpen(false)
   };
-  const changeHandler = (e) => setInfo(e.target.value );
+  const changeHandler = (e) => setInfo( {[e.target.name]: e.target.value });
 
 
   return (
@@ -59,7 +62,7 @@ export default function EditCategory({id}) {
             autoFocus
             margin="dense"
             id="name"
-            
+            name="name"
             label="Nom de la category"
             type="text"
             fullWidth

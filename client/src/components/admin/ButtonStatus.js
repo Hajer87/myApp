@@ -14,7 +14,7 @@ const ButtonStatus = ({stat, id}) => {
   return (
     <div>
 
-      <Button onClick={dispatch(updateOrders({_id:id, status}))}>{stat}</Button>
+      <Button onClick={()=>dispatch(updateOrders({_id:id, status}))}>{stat}</Button>
     </div>
   );
 };

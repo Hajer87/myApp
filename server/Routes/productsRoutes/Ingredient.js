@@ -111,7 +111,7 @@ const body = req.file ?
       ...JSON.parse(req.body.info),
       image: `${req.protocol}://${req.get('host')}/uploads/ingredients/${req.file.filename}`
     } : { ...req.body };
-  Ingredient.findByIdAndUpdate({ _id: req.params.id }, {$set: body  }, {new:true})
+  await Ingredient.findByIdAndUpdate({ _id: req.params.id }, {$set: body  }, {new:true})
     .then(() => res.status(200).json({ message: 'Ingredient modifié !'}))
   }catch (err) {
     console.log(err.message);

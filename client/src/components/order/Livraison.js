@@ -48,6 +48,7 @@ setData({...data, [e.target.name]:e.target.value})
     showSecond={showSecond}
     defaultValue={moment()}
     className="xxx"
+    disabledHours={() => [0,1, 2, 3, 4,5,6,7,8,9,10,21,22,23]}
     onChange={onChange}
   />,  
   </Form>

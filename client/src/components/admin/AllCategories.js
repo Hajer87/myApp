@@ -11,6 +11,7 @@ import { VscClose, VscZoomIn } from 'react-icons/vsc'
 import { deleteIngredient, getIngredient, getIngredients } from '../../Redux/Actions/ingredientActions';
 import EditIngredient from './EditIngredient';
 import EditCategory from './EditCaregory';
+import Loading from '../Loading';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -70,44 +71,56 @@ export default function AllCategories() {
   };
   const dispatch=useDispatch()
   useEffect(() => {
-     dispatch(getCategories())  
+     dispatch(getCategories()) 
+     dispatch(getIngredients()) 
         
   }, [dispatch])
   const categories=useSelector(state=>state.categoryReducer.categories)
   const deleteHandler=(id)=>{
   dispatch(deleteIngredient(id))
-  dispatch(getIngredients())
+  setTimeout(() => {
+    dispatch(getIngredients())
+  }, 3000);
+  
   }
-  return (
-    <div className={classes.root}>
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Vertical tabs example"
-        className={classes.tabs}
-      >
-           {(categories)? categories.map((category, index)=> 
-           <>
-        <Tab label={category.name} {...a11yProps(index)} />
-        <EditCategory id={category._id} img={category.image}/>
-        </>
-        ):null}
-        
-      </Tabs>
-      {(categories)? categories.map((category, index)=>
-      <TabPanel value={value} index={index}>
-            
+  
+  return !categories ? (
+    <Loading/>
+  ) :(
+  
+   
+<div className={classes.root}>
+<Tabs
+  orientation="vertical"
+  variant="scrollable"
+  value={value}
+  onChange={handleChange}
+  aria-label="Vertical tabs example"
+  className={classes.tabs}
+>
+  {categories.map((category, index)=>
+  <Tab label={category.name}{...a11yProps(index)}  >
+    </Tab>)}
+</Tabs>
+
+{(categories)? categories.map((category, index)=>
+ <TabPanel value={value} index={index}>
+    <EditCategory id={category._id} img={category.image}/> 
 {category.ingredient.map((el)=>
 <div style={{display:"grid", gridTemplateColumns:"80% 10% 10%", letterSpacing:'10px'}}>
 <h2>{el.name}</h2>
 <EditIngredient ingredient={el}/> 
-<VscClose onClick={()=>deleteHandler(el._id)}/>
+<VscClose onClick={()=>deleteHandler(el._id)}/> 
 </div>)}
-      </TabPanel>
+</TabPanel> 
       )
 :null}
 </div>
+
+
+
+
   );
-}
+} 
+
+

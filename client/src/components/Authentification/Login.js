@@ -40,7 +40,7 @@ const Login = ({history}) => {
   
   return (
  <>
- <Navigation/>
+ 
 <div className="container h-100">
   <div className="row h-100 justify-content-center align-items-center">
     <form className="col-md-9">

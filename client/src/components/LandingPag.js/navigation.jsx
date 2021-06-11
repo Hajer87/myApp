@@ -31,7 +31,7 @@ const Navigation = (props) => {
                 </Nav.Link>
           
 
-            {Auth.isAuth ? (
+            {Auth.isAuth || user.isAdmin ? (
             
                 
                   <Nav.Link
@@ -46,7 +46,7 @@ const Navigation = (props) => {
             ) : (
               <>
               
-                  <Nav.Link href="/signUp">Déjà inscrit?</Nav.Link>
+                  <Nav.Link href="/signUp">Enregistrement</Nav.Link>
                 
                 
                   <Nav.Link href="/Login">se connecter</Nav.Link>
@@ -54,7 +54,7 @@ const Navigation = (props) => {
               </>
             )}
             {user ? (
-              user.isAdmin ? (
+              (user.isAdmin && Auth.isAuth) ? (
               
                   
                     <Nav.Link href="/admin">Admin</Nav.Link>

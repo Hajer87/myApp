@@ -12,7 +12,7 @@ const IngredientsList = (props) => {
     props.setOpen(false)
   }
   return (
-    <Container>
+    <Container id="#ingredients">
       <h2>Choisissez un ingredient</h2>
       {(props.open) ?
          <button style={{background: 'transparent', border: 'none' }} onClick={toggle}>

@@ -39,7 +39,7 @@ const Register = ({ history }) => {
 
   return (
     <>
-<Navigation/>
+
     <div className="box_register">
      
       <h2>Inscription</h2> 

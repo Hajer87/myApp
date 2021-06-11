@@ -29,8 +29,7 @@ export const Register_User = (User_info) => (dispatch) => {
         type: REGISTER_SUCESS,
         payload: data,
       })
-/*       localStorage.setItem('userInfo', JSON.stringify(data));
- */
+ 
     }
      
     )

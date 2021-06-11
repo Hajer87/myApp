@@ -113,7 +113,7 @@ function Commandes() {
                   <td>{order.livraison}</td>
                   <td>{order.user.ville} {order.user.City} {order.user.codePostal}</td>
                   <td>{order.total} DT</td>
-                  <td> <FcApproval onClick={() => dispatch(updateOrders(order._id))}/>
+                  <td> <Button onClick={() => dispatch(updateOrders(order._id))}>valider</Button>
                       
                    
                   </td>

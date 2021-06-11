@@ -35,7 +35,9 @@ export default function AddCategory() {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(createCategory(name, image));
-    dispatch(getCategories())
+    setTimeout(() => {
+      dispatch(getCategories())
+    }, 2000);
    
     setOpen(false)
   };

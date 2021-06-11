@@ -1,11 +1,13 @@
 import {Link } from 'react-router-dom'
 import Navigation from '../LandingPag.js/navigation'
+
+import PasserCommandeButton from './PasserCommandeButton'
 export const Header = (props) => {
   return (
 
     <div>
-      <Navigation/>
-    <header id='header'>
+      
+    <header >
       <div className='intro'>
         <div className='overlay'>
           <div className='container'>
@@ -16,11 +18,12 @@ export const Header = (props) => {
                   <span></span>
                 </h1>
                 <p>{props.data ? props.data.paragraph : 'Loading'}</p>
-                <a href='#commande'
+                {/* <a href='#commande'
                   className='btn btn-custom btn-lg page-scroll'
                 >
                 Passer une commande
-                </a>{' '}
+                </a>{' '} */}
+                <PasserCommandeButton/>
                   
               </div>
             </div>

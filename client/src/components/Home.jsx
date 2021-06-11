@@ -12,7 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { load_user } from "../Redux/Actions/AuthActions";
 import Loading from "./Loading";
 import { Button } from "@material-ui/core";
-
+import Bar from '../components/LandingPag.js/bar/Bar'
+import AdminButton from "./LandingPag.js/AdminButton";
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -25,19 +26,18 @@ const App = () => {
     status: false,
   });
   const dispatch = useDispatch();
-const auth=useSelector(state=>state.AuthReducer)
+const auth=useSelector(state=>state.AuthReducer.user)
   
   useEffect(() => {
     
        setLandingPageData(JsonData); 
-       dispatch(load_user()) 
-
+      dispatch(load_user()) 
+ 
 
     
   }, []);
 
-  
-
+ 
   const myBol = useSelector((state) => state.contentReducer.content);
   const [open, setOpen] = useState(false);
   const [cart, setCart] = useState(false);
@@ -46,8 +46,9 @@ const auth=useSelector(state=>state.AuthReducer)
   
   return (
     <div>
-      
+    
       <Header data={landingPageData.Header} />
+     
       <CategoryList
         setData={setData}
         setOpen={setOpen}

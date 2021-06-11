@@ -8,8 +8,8 @@ import { getIngredients } from "../../Redux/Actions/ingredientActions";
 import { getOrders } from "../../Redux/Actions/Orders/order";
 import getUsers from "../../Redux/Actions/usersAction";
 import { useDispatch } from "react-redux";
+import ModalAdd from "./ModalAdd";
 const Categories = () => {
-  const [open, setOpen] = useState(false);
   const dispatch=useDispatch()
   useEffect(() => {
     dispatch(getCategories());
@@ -23,9 +23,10 @@ const Categories = () => {
 
       <h2>Listes des categories</h2>
       <AddCategory />
-      <AddIngredient />
-
-      <AllCategories />
+     {/*  <AddIngredient /> */}
+<ModalAdd/>
+      <AllCategories/>
+      
     </div>
   );
 };

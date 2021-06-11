@@ -12,15 +12,16 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import './upload.css'
 
 export default function AddIngredient() {
   const [open, setOpen] = React.useState(false);
   const [image, setImage]=useState(null)
   const [data, setData] = useState({
-      name:'',
-      description:'',
-      price:'',
-      category:''
+      name:null,
+      description:null,
+      price:null,
+      category:null
     });
   const handleClickOpen = () => {
     setOpen(true);
@@ -52,11 +53,12 @@ const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createIngredient(data, image));
-    setTimeout(() => {
+     setTimeout(() => {
       dispatch(getIngredients())
-    }, 2000); 
+      setOpen(false)
+    }, 2000);  
     
-    setOpen(false)
+     
   };
   
  
@@ -67,7 +69,7 @@ const dispatch = useDispatch();
 Ajouter un ingredient
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+       
         <DialogContent>
           
           <TextField
@@ -91,7 +93,7 @@ Ajouter un ingredient
             type="text"
             onChange={handleChange}
             fullWidth
-            required
+            
           />
 
 
@@ -112,10 +114,10 @@ Ajouter un ingredient
               name="category"
               defaultValue="category"
               onChange={handleChange}
+              placeholder='choisissez votre mode de livraison'
               required
 
             >
-              
               {categories
                 ? categories.map((el) => <>
                <option value={el._id}>{el.name}</option></>)
@@ -123,14 +125,22 @@ Ajouter un ingredient
             </Form.Control>
 
            
-          <Form.File
+         {/*  <Form.File
           type="file"
             name="image"
             id="image"
             label="upload image"
             required
             onChange={selectImageToUpload}
-          />
+          /> */}
+
+<div class='file file--upload'>
+      <label for='input-file'>
+        <i class="material-icons">cloud_upload</i>Upload
+      </label>
+      <input id='input-file' type='file'required
+            onChange={selectImageToUpload}  />
+    </div>
 
         </DialogContent>
         <DialogActions>

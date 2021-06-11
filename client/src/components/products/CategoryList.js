@@ -4,10 +4,10 @@ import Loading from '../Loading'
 import { getCategories } from '../../Redux/Actions/categoryActions'
 import CategoryCard from './categoryCard'
 import '../../assets/style/category.css'
-import { GrCart } from "react-icons/gr";
-import { Card } from 'react-bootstrap'
+
 import { CardActionArea, CardActions, CardContent, Typography } from '@material-ui/core'
 import { FcDownload } from "react-icons/fc";
+import { getIngredients } from '../../Redux/Actions/ingredientActions'
 
 
 
@@ -16,6 +16,7 @@ const CategoryList = ({setOpen, open, setData, data}) => {
 const dispatch = useDispatch()
   useEffect(() => {
    dispatch (getCategories())
+   dispatch(getIngredients())
   }, [dispatch]) 
 
   const liste=useSelector(state=>state.categoryReducer)

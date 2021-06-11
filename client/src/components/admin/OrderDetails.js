@@ -1,7 +1,7 @@
 import { Divider } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import { Accordion, Button, ListGroup, Modal } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+
+import { useSelector } from "react-redux";
 import './orderDetails.css'
 const OrderDetails = ({order, key}) => {
   

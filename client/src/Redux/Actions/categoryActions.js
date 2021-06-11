@@ -5,29 +5,24 @@ import setAuthToken from "../../helpers/setAuthToken";
 
 
 // get one category
-export const getCategory =(catId)=> async dispatch=>{
-try{
+export const getCategory =(catId)=> async (dispatch)=>{
+
 dispatch({
 type: GET_CATEGORY_LOADING
 });
 const response=await axios.get(`http://localhost:5000/categories/${catId}`)
+console.log(response.data.ingredient)
 dispatch({
 type: GET_CATEGORY_SUCESS,
-payload: response.data.categories
+payload: response.data
 })
 
-}catch (err){
-dispatch({
-type: GET_CATEGORY_FAILED,
-payload: err.response.data.errors,
-})
 
- }
 }
 
 
 // create a category
-export const createCategory=(name,image)=>async dispatch =>{
+export const createCategory=(name,image)=>async (dispatch) =>{
     setAuthToken()
     let formData = new FormData()
     await formData.append("name", JSON.stringify(name)) 

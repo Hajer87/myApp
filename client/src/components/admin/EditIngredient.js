@@ -17,7 +17,7 @@ import { VscZoomIn } from "react-icons/vsc";
  function EditIngredient({ingredient}) {
   const [open, setOpen] = React.useState(false);
   const [image, setImage]=useState(null)
-  const [info, setInfo] = useState('');
+  const [info, setInfo] = useState(null);
   const handleClickOpen = () => {
     setOpen(true);
   };

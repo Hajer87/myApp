@@ -64,14 +64,14 @@ upload.single('image'),
 // get one  Categorie
 router.get("/:id", async (req, res) => {
   try {
-    const category = await Categories.findOne({ _id: req.params.id });
+    const category = await Categories.findOne({ _id: req.params.id }).populate('ingredient');
         if (!category) {
       return res.status(404).json({ errors: [{ msg: "Category not found" }] });
     }
     res.status(200).json(category);
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("server error");
+    res.status(500).json({errors:[{msg:"server error"}]});
   }
 });
 // delete category

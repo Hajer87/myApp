@@ -1,6 +1,8 @@
 import {combineReducers} from 'redux'
 import AuthReducer from './AuthReducer'
 import categoryReducer from './categoryReducer'
+import catReducer from './catReducer'
+
 import ingredientReducer from './ingredientReducer'
 import contentReducer from '../Reducer/order/contentReducer'
 import orderReducer from '../Reducer/order/orderReducer'
@@ -16,6 +18,7 @@ import usersReducer from './usersReducer'
 export default combineReducers({
 AuthReducer, 
 categoryReducer, 
+catReducer,
 ingredientReducer,
 contentReducer, 
 orderReducer,

@@ -12,10 +12,12 @@ import Categories from "./components/admin/Categories";
 import Commandes from "./components/admin/Commandes";
 import Panier from "./components/order/Panier";
 import UsersList from "./components/admin/UsersList";
+import Bar from "./components/LandingPag.js/bar/Bar";
 
 function App() {
   return (
     <div>
+      <Bar/>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/signUp" component={SignUp} />
@@ -25,7 +27,7 @@ function App() {
         //admin
         <PrivateRoute exact path="/admin" component={Dashboard} />
         <PrivateRoute path="/admin/commandes" component={Commandes} />
-        <PrivateRoute path="/admin/productlist" component={Categories} />
+        <PrivateRoute exact path="/admin/productlist" component={Categories} />
         <PrivateRoute path="/admin/userlist" component={UsersList} />
       </Switch>
     </div>

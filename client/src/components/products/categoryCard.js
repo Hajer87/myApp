@@ -46,9 +46,9 @@ export default function CategoryCard ({category, open , setOpen,  setData, data 
             title='Category' />
           <CardContent>
             <Typography gutterBottom variant='h5' component='h2'>
-             
-              <button  style={{background: "transparent", border: "none" }}onClick={handleClick}><a  href="#ingredients">{category.name}</a></button>
-           
+            <a  href="#ingredients">
+              <button  style={{background: "transparent", border: "none" }}onClick={handleClick}>{category.name}</button>
+              </a>
              
             </Typography>
           </CardContent>

@@ -58,7 +58,7 @@ return(
 !(tab.length==1)?
 !(content.includes(ingredient))?
 //button add
-      <button style={{background: "transparent", border: "none" }} onClick={()=>{handleClickAdd(ingredient)}}> <a href="#commande">{ingredient.name}</a></button>
+<a href="#commande"><button style={{background: "transparent", border: "none" }} onClick={()=>{handleClickAdd(ingredient)}}> {ingredient.name}</button></a>
        //button delete
       : (<button style={{background: "transparent", border: "none" }} onClick={()=>deleteIngredient(ingredient)}><BsTrash/></button>)
     :null

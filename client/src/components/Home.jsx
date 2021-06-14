@@ -14,6 +14,7 @@ import Loading from "./Loading";
 import { Button } from "@material-ui/core";
 import Bar from '../components/LandingPag.js/bar/Bar'
 import AdminButton from "./LandingPag.js/AdminButton";
+import Navigation from "./LandingPag.js/navigation";
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -37,7 +38,6 @@ const auth=useSelector(state=>state.AuthReducer.user)
     
   }, []);
 
- 
   const myBol = useSelector((state) => state.contentReducer.content);
   const [open, setOpen] = useState(false);
   const [cart, setCart] = useState(false);
@@ -46,7 +46,7 @@ const auth=useSelector(state=>state.AuthReducer.user)
   
   return (
     <div>
-    
+   <Navigation/>
       <Header data={landingPageData.Header} />
      
       <CategoryList

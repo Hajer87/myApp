@@ -13,7 +13,7 @@ const categoryReducer = (state = initialState, action) => {
   case GET_ALL_CATEGORIES_SUCESS:
   return {...state, isLoading:false, categories: action.payload};
 case DELETE_CATEGORY_SUCESS:
-  return{...state, isLoading:false, ingredients: state.categories.filter(el=>el._id !==action.payload._id)}
+  return{...state, isLoading:false, categories: state.categories.filter(el=>el._id !==action.payload._id)}
   case UPDATE_CATEGORY_SUCESS:
     return {...state, isLoading:false, categories: state.categories.map((el)=>el._id==action.payload._id? action.payload:el)}
     

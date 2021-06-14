@@ -1,22 +1,25 @@
+
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import { FcApproval } from "react-icons/fc";
 
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import Navigation from "../LandingPag.js/navigation";
-import { Button, DropdownButton, Form, Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import OrderDetails from "./OrderDetails";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteOrder,
   getOrders,
   updateOrders,
-} from "../../Redux/Actions/Orders/order";
-import { getCategories } from "../../Redux/Actions/categoryActions";
-import { getIngredients } from "../../Redux/Actions/ingredientActions";
-import getUsers from "../../Redux/Actions/usersAction";
+} from "../../../Redux/Actions/Orders/order";
+import { getCategories } from "../../../Redux/Actions/categoryActions";
+import { getIngredients } from "../../../Redux/Actions/ingredientActions";
+import getUsers from "../../../Redux/Actions/usersAction";
+import Loading from "../../Loading";
+import AdminNav from "../AdminNav/AdminNav";
+import Delivred from "./DelivredOrder";
+import NotDelivred from "./NotDelivredOrder";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -63,13 +66,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Commandes() {
-  const dispatch = useDispatch();
+const NotDelivredOrder = ({order}) => {
+                         const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getOrders());
     dispatch(getCategories());
     dispatch(getIngredients());
-    dispatch(getOrders());
+   
     dispatch(getUsers());
   }, [dispatch]);
 
@@ -77,13 +81,15 @@ function Commandes() {
   const handleDelete = (id) => {
     dispatch(deleteOrder(id));
   };
-
-  /* const orders=JSON.parse(localStorage.getItem('orders')) */
+const handleUpdate=()=>{
+  dispatch(updateOrders(order._id))
+  setTimeout(() => {
+    dispatch(getOrders())
+  }, 2000);
+}
   return (
-    <>
-      <Navigation />
-
-      <Table striped bordered hover responsive className="table-sm">
+  <div>
+  <Table striped bordered hover responsive className="table-sm">
         <thead>
           <tr>
             <th>ID</th>
@@ -94,20 +100,22 @@ function Commandes() {
             <th>heure de livraison</th>
             <th>livraison</th>
             <th>address</th>
+            <th>Numéro de téléphone</th>
             <th>total</th>
             <th>status</th>
             
             <th>delivred_at</th>
           </tr>
         </thead>
-        <tbody>
+                <tbody>
           {orders
-            ? orders.map((order, index) => (
+            ? orders.filter((order)=>order.isDelivered===false).map((order, index) => (
+              !order.isDelelvred?
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.user.firstname} {order.user.lastname}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
-                  <td><OrderDetails key={index} order={order} /></td>
+               <td><OrderDetails key={index} order={order} /></td> 
                   <td>{order.date}</td>
                   <td>{order.heure}</td>
                   <td>{order.livraison}</td>
@@ -124,27 +132,20 @@ function Commandes() {
                       <i
                         className="fas fa-times"
                         style={{ color: "red" }}
-                        onClick={() => dispatch(updateOrders(order._id))}
+                        onClick={() =>handleUpdate}
                       />
                     )}
                   </td>
-                  {order.isDelivered ? (
-                    <td>
-                      <Button
-                        onClick={() => handleDelete(order._id)}
-                        variant="light"
-                        className="btn-sm"
-                      >
-                        supprimer
-                      </Button>
-                    </td>
-                  ) : null}
+                  
+                 
                 </tr>
+                :null
               ))
-            : null}
+            : null} 
         </tbody>
-      </Table>
-    </>
-  );
-}
-export default Commandes;
+      </Table>                   
+  </div>
+  )
+};
+
+export default NotDelivredOrder;

@@ -1,8 +1,11 @@
-import {Link } from 'react-router-dom'
-import Navigation from '../LandingPag.js/navigation'
+import { useSelector } from 'react-redux'
+import AdminButton from './AdminButton'
+
 
 import PasserCommandeButton from './PasserCommandeButton'
 export const Header = (props) => {
+  const user=useSelector((state)=>state.AuthReducer.user)
+
   return (
 
     <div>
@@ -23,8 +26,9 @@ export const Header = (props) => {
                 >
                 Passer une commande
                 </a>{' '} */}
-                <PasserCommandeButton/>
-                  
+               
+                {(user && user.isAdmin )?
+    <AdminButton/>:  <PasserCommandeButton/>} 
               </div>
             </div>
           </div>

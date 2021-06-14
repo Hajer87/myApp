@@ -35,10 +35,11 @@ type: ADD_CATEGORY_LOADING
 
 
 const response= await axios.post ('http://localhost:5000/categories/newCategory',formData,  { headers: { 'Content-Type': 'multipart/form-data' }});
-dispatch({
+await dispatch({
 type: ADD_CATEGORY_SUCESS,
 payload: response.data
 })
+await dispatch(getCategories())
 
 }catch(err){
 dispatch ({
@@ -80,7 +81,7 @@ try {
 dispatch({
 type: DELETE_CATEGORY_LOADING,
  });
-const response = await axios.delete(`/categories/${catId}`);
+const response = await axios.delete(`http://localhost:5000/categories/${catId}`);
  dispatch({
  type: DELETE_CATEGORY_SUCESS , payload : response.data,
  });
@@ -100,11 +101,19 @@ export const updateCategory=(id, info, image)=> async (dispatch)=>{
         type: UPDATE_CATEGORY_LOADING,
       });
       const formData = new FormData()
-        formData.append('info', JSON.stringify(info))
-        formData.append('image', image) 
+      formData.append('info', JSON.stringify(info))
+        formData.append('image', image)
+const body=
+     (image)? 
+        { formData
+      }
         
+        : info
+        
+        const response = await axios.put(`http://localhost:5000/categories/${id}`,body);
+
     
-      const response = await axios.put(`http://localhost:5000/categories/${id}`,formData);
+      
       dispatch({
         type: UPDATE_CATEGORY_SUCESS,
         payload: response.data,

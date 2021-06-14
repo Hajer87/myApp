@@ -11,7 +11,7 @@ import {
 } from "../../Actions/types";
 
 const initialState = {
-  orders: [],
+  orders: null,
   isLoading: false,
   errors: null,
 };

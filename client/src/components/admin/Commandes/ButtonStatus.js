@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { useDispatch } from "react-redux";
-import {  updateOrders } from "../../Redux/Actions/Orders/order";
+import {  updateOrders } from "../../../Redux/Actions/Orders/order";
 import { Button } from "react-bootstrap";
 
 const ButtonStatus = ({stat, id}) => {

@@ -1,8 +1,8 @@
 import axios from "axios";
 import setAuthToken from "../../helpers/setAuthToken";
-import { GET_USERS_SUCCESS, GET_USERS_FAILED,GET_USERS_LOADING  } from "./types";
+import { GET_USERS_SUCCESS, GET_USERS_FAILED,GET_USERS_LOADING, UPDATE_USER_LOADING, UPDATE_USER_FAILED, UPDATE_USER_SUCCESS  } from "./types";
 
- const getUsers = () => async (dispatch) => {
+  const getUsers = () => async (dispatch) => {
                           setAuthToken()
   try {
     dispatch({
@@ -22,3 +22,26 @@ import { GET_USERS_SUCCESS, GET_USERS_FAILED,GET_USERS_LOADING  } from "./types"
   }
 };
 export default getUsers
+
+export const updateUser=(id, update)=> async (dispatch)=>{
+  setAuthToken()
+  try {
+    dispatch({
+      type: UPDATE_USER_LOADING,
+    });
+   
+      
+    const response = await axios.put(`http://localhost:5000/users/${id}`,update);
+  
+    await dispatch({
+      type: UPDATE_USER_SUCCESS,
+      payload: response.data,
+    });
+  await dispatch(getUsers())
+  } catch (err) {
+    dispatch({
+      type: UPDATE_USER_FAILED,
+      payload: err.response.data.errors,
+    });
+  }
+  }

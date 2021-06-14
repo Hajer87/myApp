@@ -31,7 +31,7 @@ router.post("/newOrder", Authmiddelware, async (req, res) => {
   }
 });
 
-/* router.get ("/:id", Authmiddelware, async (req,res)=>{
+router.get ("/:id", Authmiddelware, async (req,res)=>{
 try{
 const bol= await Bol.findOne({_id: req.params.id})
 console.log(req.params.id)
@@ -42,15 +42,14 @@ res.status(200).json(bol)
 console.log(err.message);
 res.status(500).send("server error");
 }
-}) */
+}) 
 
 router.get(
   "/",
-  authAdmin,  async (req, res) => {
+   authAdmin , async (req, res) => {
     try {
       const orders = await Order.find({}).populate("user")
-        
-
+      
       res.status(200).json(orders);
     } catch (err) {
       console.log(err.message);

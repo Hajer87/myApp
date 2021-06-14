@@ -31,7 +31,7 @@ const Navigation = (props) => {
                 </Nav.Link>
           
 
-            {Auth.isAuth || user.isAdmin ? (
+            {Auth.isAuth  ? (
             
                 
                   <Nav.Link
@@ -53,8 +53,8 @@ const Navigation = (props) => {
                 
               </>
             )}
-            {user ? (
-              (user.isAdmin && Auth.isAuth) ? (
+           {/*  {Auth.isAuth  ?  (
+              (user.isAdmin ) ? (
               
                   
                     <Nav.Link href="/admin">Admin</Nav.Link>
@@ -62,7 +62,7 @@ const Navigation = (props) => {
                 
               ) : null
             ) : null}
-          
+           */}
         </Nav>
         </Navbar.Collapse>
 </Navbar>

@@ -26,10 +26,11 @@ export const addOrder = (order) => async (dispatch) => {
       order
     );
 
-    dispatch({
+    await dispatch({
       type: ADD_ORDER_SUCESS,
       payload: reponse.data,
     });
+    await dispatch(getOrders())
   } catch (err) {
     dispatch({
       type: ADD_ORDER_FAILED,
@@ -46,12 +47,11 @@ export const getOrders = () => async (dispatch) => {
       type: GET_ORDERS_LOADING,
     });
     const response = await axios.get("http://localhost:5000/orders");
-
     dispatch({
       type: GET_ORDERS_SUCESS,
       payload: response.data,
     });
-  } catch (err) {
+  }catch (err) {
     dispatch({
       type: GET_ORDERS_FAILED,
       payload: err.response.data.errors,
@@ -69,7 +69,10 @@ export const getOrders = () => async (dispatch) => {
       `http://localhost:5000/orders/${id}`,
       {} 
     );
-    dispatch({ type: UPDATE_ORDER_SUCCESS , payload: data });
+   
+   await dispatch({ type: UPDATE_ORDER_SUCCESS , payload: data });
+   await dispatch(getOrders())
+
   } catch (err) {
     dispatch({
       type: UPDATE_ORDER_FAILED,
@@ -88,10 +91,12 @@ export const deleteOrder = (id) => async (dispatch) => {
     const response = await axios.delete(`http://localhost:5000/orders/${id}`);
 
     console.log(response);
-    dispatch({
+   await dispatch({
       type: DELETE_ORDER_SUCCESS,
       payload: response.data,
     });
+    await dispatch(getOrders())
+
   } catch (err) {
     dispatch({
       type: DELETE_ORDER_FAILED,

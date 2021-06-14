@@ -8,16 +8,15 @@ import Login from "./components/Authentification/Login";
 import Checkout from "./components/order/Checkout";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "./components/admin/Dashbord";
-import Categories from "./components/admin/Categories";
-import Commandes from "./components/admin/Commandes";
+import Categories from "./components/admin/categories/Categories";
+import Commandes from "./components/admin/Commandes/Commandes";
 import Panier from "./components/order/Panier";
-import UsersList from "./components/admin/UsersList";
-import Bar from "./components/LandingPag.js/bar/Bar";
-
+import UsersList from "./components/admin/Users/UsersList";
+import '@progress/kendo-theme-default/dist/all.css';
 function App() {
   return (
     <div>
-      <Bar/>
+     
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/signUp" component={SignUp} />

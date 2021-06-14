@@ -58,6 +58,7 @@ export const createIngredient = (data, image) => async (dispatch) => {
       type: ADD_INGREDIENT_SUCESS,
       payload: response.data
     });
+    await dispatch(getIngredients())
   } catch (err) {
     dispatch({
       type: ADD_INGREDIENT_FAILED,
@@ -79,6 +80,8 @@ export const deleteIngredient = (ingId) => async (dispatch) => {
       type: DELETE_INGREDIENT_SUCESS ,
       payload : response.data,
     });
+    await dispatch(getIngredients())
+
   } catch (err) {
     dispatch({
       type: DELETE_INGREDIENT_FAILED,
@@ -117,14 +120,21 @@ try {
 
     formData.append('info', JSON.stringify(info))
     formData.append('image', image) 
+    const body=
+     (image)? 
+        { formData
+      }
+        
+        : info
     
-    
-  const response = await axios.put(`http://localhost:5000/ingredients/${id}`,formData);
+  const response = await axios.put(`http://localhost:5000/ingredients/${id}`,body);
 
-  dispatch({
+  await dispatch({
     type: UPDATE_INGREDIENT_SUCCESS,
     payload: response.data,
   });
+  await dispatch(getIngredients())
+
 } catch (err) {
   dispatch({
     type: UPDATE_INGREDIENT_FAILED,

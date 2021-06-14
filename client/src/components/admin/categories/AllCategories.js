@@ -5,13 +5,13 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { getCategories } from '../../Redux/Actions/categoryActions';
+import { deleteCategory, getCategories } from '../../../Redux/Actions/categoryActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { VscClose, VscZoomIn } from 'react-icons/vsc' 
-import { deleteIngredient, getIngredient, getIngredients } from '../../Redux/Actions/ingredientActions';
+import { deleteIngredient, getIngredient, getIngredients } from '../../../Redux/Actions/ingredientActions';
 import EditIngredient from './EditIngredient';
 import EditCategory from './EditCaregory';
-import Loading from '../Loading';
+import Loading from '../../Loading';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -74,14 +74,16 @@ export default function AllCategories() {
      dispatch(getCategories()) 
      dispatch(getIngredients()) 
         
-  }, [dispatch])
+  }, [])
   const categories=useSelector(state=>state.categoryReducer.categories)
   const deleteHandler=(id)=>{
   dispatch(deleteIngredient(id))
-  setTimeout(() => {
-    dispatch(getIngredients())
-  }, 3000);
-  
+/*   window.location.reload();
+ */  }
+  const deleteHandlerCat=(id)=>{
+    dispatch(deleteCategory(id))
+/*     window.location.reload();
+ */ 
   }
   
   return !categories ? (
@@ -106,6 +108,7 @@ export default function AllCategories() {
 {(categories)? categories.map((category, index)=>
  <TabPanel value={value} index={index}>
     <EditCategory id={category._id} img={category.image}/> 
+    <VscClose onClick={()=>deleteHandlerCat(category._id)}/> 
 {category.ingredient.map((el)=>
 <div style={{display:"grid", gridTemplateColumns:"80% 10% 10%", letterSpacing:'10px'}}>
 <h2>{el.name}</h2>

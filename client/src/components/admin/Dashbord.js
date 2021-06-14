@@ -6,6 +6,7 @@ import { getIngredients } from '../../Redux/Actions/ingredientActions'
 import { getOrders } from '../../Redux/Actions/Orders/order'
 import getUsers from '../../Redux/Actions/usersAction'
 import Navigation from '../LandingPag.js/navigation'
+import AdminNav from './AdminNav/AdminNav'
 
 import Sidebar from './Sidebar'
 
@@ -31,7 +32,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Navigation/>
+    <AdminNav/>
       <Sidebar/>
       
 

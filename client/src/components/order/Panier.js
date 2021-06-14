@@ -29,9 +29,8 @@ const Panier = ({ setShowCart }) => {
   const [showLocation, setShowLocation] = useState(false);
   const history = useHistory();
   const [data, setData] = useState({
-    date: null,
-    heure: null,
-    livraison: false,
+    date: new window.Date(),
+    livraison: null,
     total: null,
   });
 
@@ -56,7 +55,7 @@ const Panier = ({ setShowCart }) => {
         {panier.length === 0 ? (
           <>
             <h2>Votre panier est vide</h2>
-            <button onClick={handleClick}>revenir au menu</button>
+            <button  className="button" onClick={handleClick}>revenir au menu</button>
           </>
         ) : (
           <>
@@ -79,9 +78,9 @@ const Panier = ({ setShowCart }) => {
               data={data}
               setData={setData}
             />
-          
 
             <Total data={data} setData={setData} />
+           
           </>
         ) : null}
       </Container>

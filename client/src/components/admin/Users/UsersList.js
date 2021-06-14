@@ -1,35 +1,38 @@
 import React, { useEffect} from "react";
 import { Button, Table } from "react-bootstrap";
 import { useDispatch} from "react-redux";
-import { Link } from "react-router-dom";
-import Navigation from "../LandingPag.js/navigation";
-import Loading from "../Loading";
+import Loading from "../../Loading";
+import UserCard from "./UserCard";
+import '../../../assets/style/UserList.css'
+import UserSearch from "./UserSearch";
 const UsersList = ({history}) => {
-  const person = JSON.parse(localStorage.getItem("user"));
-  const dispatch = useDispatch();
-  /* useEffect(() => {
-    if (person.isAdmin) {
-      const users=localStorage.getItem('users')
-    } else {
-      history.push("/login");
-    }
-  }, [dispatch, history, person]); */
+  const [search, setSearch]=React.useState('')
   const users=JSON.parse(localStorage.getItem('users'))
 
   if (users.isLoading) {
     return <Loading />;
   } 
   return (
-    <div>
-      <Navigation/>
+<>
+<UserSearch search={search} setSearch={setSearch}/>
 
-      <Table striped bordered hover responsive className="table-sm">
+    <div className="UserList">
+      { users.filter(
+        user =>
+        
+          user.email.toUpperCase().includes(search.toUpperCase())
+      ).map((user)=>
+    
+      <UserCard user={user}/>)}
+    
+    {/* <Table striped bordered hover responsive className="table-sm">
         <thead>
           <tr>
             <th>ID</th>
             <th>NAME</th>
             <th>EMAIL</th>
             <th>Adresse</th>
+            <th>Numéro de téléphone</th>
             <th>ADMIN</th>
             <th />
           </tr>
@@ -54,8 +57,9 @@ const UsersList = ({history}) => {
             </tr>
           ))}
         </tbody>
-      </Table>
+      </Table>  */}
     </div>
+    </>
   );
 };
 

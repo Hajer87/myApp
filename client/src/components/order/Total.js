@@ -1,5 +1,5 @@
-import React, { useEffect} from "react";
-import {Link, useHistory} from 'react-router-dom'
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -12,10 +12,12 @@ import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import { useDispatch, useSelector } from "react-redux";
-import {getShippingPrice, updateCommande} from "../../Redux/Actions/Orders/commandeActions";
-import { deleteCommande, addDetails, addAddress } from '../../Redux/Actions/Orders/commandeActions'
-import { addOrder } from "../../Redux/Actions/Orders/order";
-
+import {
+  getShippingPrice,
+} from "../../Redux/Actions/Orders/commandeActions";
+import {
+  addDetails,
+} from "../../Redux/Actions/Orders/commandeActions";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -31,23 +33,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Total({ setData, data}) {
-    const history = useHistory();
+export default function Total({ setData, data }) {
+  const history = useHistory();
 
   const orders = useSelector((state) => state.commandeReducer.commandes);
-  
+
   const price = orders.reduce((acc, order) => {
     return (acc += order.reduce((accumulator, el) => {
       return (accumulator += el.price);
     }, 0));
   }, 0);
-  console.log(price)
+  console.log(price);
   const dispatch = useDispatch();
-  /* const panier = useSelector(state => state.commandeReducer)
-  const array=panier.commandes.map((cmd)=>cmd.map((el)=>el.name))
-  console.log(array)  */
+  
   useEffect(() => {
-const livraison=localStorage.getItem('livraison')
     dispatch(getShippingPrice());
   }, [dispatch]);
 
@@ -57,36 +56,39 @@ const livraison=localStorage.getItem('livraison')
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
-    setData({ ...data, total: price })
-  }
+    if(data.livraison!==null)
+   { setOpen(true);
+    setData({ ...data, total: price });}
+    else
+    alert('veuillez remplir toutes les informations nécessaires')
+  };
 
   const handleClose = () => {
     setOpen(false);
+    setData({...data, livraison:null})
   };
 
   const handleClick = () => {
-      
-      
-      dispatch(addDetails(data))
-      
-      localStorage.setItem('data', JSON.stringify(data))
-      
-        setOpen(false);
-        history.push("/checkout")
    
+    dispatch(addDetails(data));
 
+    localStorage.setItem("data", JSON.stringify(data));
+
+    setOpen(false);
+    history.push("/checkout");
   };
-
- 
-   
-  
-
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <div>
-      <Button variant="secondary" size="lg" block onClick={()=>handleClickOpen(data)}>
-        <h2>Valider la commande</h2>
-      </Button>
+      <button
+        className="button"
+        variant="secondary"
+        size="lg"
+        block
+        onClick={() => handleClickOpen(data)}
+      >
+        Valider la commande
+      </button>
       <Dialog
         fullScreen
         open={open}
@@ -106,11 +108,7 @@ const livraison=localStorage.getItem('livraison')
             <Typography variant="h3" className={classes.title}>
               Récap
             </Typography>
-            <Button
-              onClick={handleClick}
-              autoFocus
-              color="inherit"
-            >
+            <Button onClick={handleClick} autoFocus color="inherit">
               Valider
             </Button>
           </Toolbar>
@@ -123,7 +121,7 @@ const livraison=localStorage.getItem('livraison')
             </span>
           </div>
           <Divider />
-          {data.livraison ? (
+          {(data.livraison==="domicile") ? (
             <>
               <div className="boxTotal">
                 <h2>Frais de livraison:</h2>
@@ -152,8 +150,27 @@ const livraison=localStorage.getItem('livraison')
           <Divider />
           <Divider />
           <div className="boxTotal">
+            <h2>Nom et prénom</h2>
+            <span>
+              {user.firstname} {''}
+              {user.lastname}
+            </span>
+           
+
+          </div>
+          <Divider />
+          <div className="boxTotal">
             <h2>Numéro de téléphone</h2>
-            <span>{data.tel}</span>
+            <span>{user.phoneNumber}</span>
+           
+          </div>
+          <Divider />
+          <div className="boxTotal">
+            <h2>Address</h2>
+            <span>
+              {user.ville}
+              {user.city}-{user.codePostal}
+            </span>
           </div>
           <Divider />
           <div className="boxTotal">
@@ -161,8 +178,6 @@ const livraison=localStorage.getItem('livraison')
             <span>{`Le ${data.date} à ${data.heure}`}</span>
           </div>
           <Divider />
-          
- 
         </List>
       </Dialog>
     </div>

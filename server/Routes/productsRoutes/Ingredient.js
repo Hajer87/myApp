@@ -42,7 +42,8 @@ router.post(
     } 
     try {
       const { name, category, image, description} = req.body;
-      let Item= await Ingredient.findOne({ name });
+      console.log(req.body)
+     /*  let Item= await Ingredient.findOne({ name });
       if (Item) {
         return res
           .status(400)
@@ -51,7 +52,7 @@ router.post(
               { msg: "this Ingredient exists in our database" },
             ],
           });
-      }
+      } */
       
     const path= `${req.protocol}://${req.get('host')}/uploads/ingredients/${req.file.filename}`
 const body=JSON.parse(req.body.data)

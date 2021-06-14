@@ -1,4 +1,4 @@
-import { GET_USERS_FAILED, GET_USERS_LOADING, GET_USERS_SUCCESS } from "../Actions/types"
+import { GET_USERS_FAILED, GET_USERS_LOADING, GET_USERS_SUCCESS, UPDATE_USER_SUCCESS } from "../Actions/types"
 
 const initialState = {
   users: [],
@@ -12,6 +12,7 @@ const usersReducer = (state = { users: [] } , action) => {
       return { loading: true }
     case GET_USERS_SUCCESS:
       return { loading: false, users: action.payload }
+      
     case GET_USERS_FAILED:
       return { loading: false, error: action.payload }
    

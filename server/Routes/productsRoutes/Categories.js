@@ -78,7 +78,7 @@ router.get("/:id", async (req, res) => {
 router.delete('/:id', authAdmin, async (req,res)=>{
 
   try{  
- const category= await Categories.findOneAndRemove({ id: req.params.id });
+ const category= await Categories.findOneAndRemove({ _id: req.params.id });
 
  if (!category) {
   return res.status(404).json({ errors: [{ msg: "Category not found" }] });

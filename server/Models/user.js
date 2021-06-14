@@ -25,6 +25,12 @@ const userSchema = mongoose.Schema(
     codePostal:{
       type:Number, required:true
     },
+    phoneNumber:{
+      type: Number, required:true
+    },
+    avatar: {
+      type: String
+    },
     commandes:[{
       type: mongoose.Types.ObjectId,
       ref: "order",

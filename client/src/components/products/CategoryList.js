@@ -20,7 +20,7 @@ const dispatch = useDispatch()
   }, [dispatch]) 
 
   const liste=useSelector(state=>state.categoryReducer)
-  const {categories,isLoading,errors}=liste
+  const {isLoading}=liste
   return isLoading ? (
     <Loading/>
   ) :(

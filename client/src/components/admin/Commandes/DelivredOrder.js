@@ -16,10 +16,7 @@ import {
 import { getCategories } from "../../../Redux/Actions/categoryActions";
 import { getIngredients } from "../../../Redux/Actions/ingredientActions";
 import getUsers from "../../../Redux/Actions/usersAction";
-import Loading from "../../Loading";
-import AdminNav from "../AdminNav/AdminNav";
-import Delivred from "./DelivredOrder";
-import NotDelivred from "./NotDelivredOrder";
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,25 +44,6 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
-  };
-}
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-    display: "flex",
-    height: 224,
-  },
-  tabs: {
-    borderRight: `1px solid ${theme.palette.divider}`,
-  },
-}));
-
 const DelivredOrder = ({order}) => {
                          const dispatch = useDispatch();
 
@@ -84,11 +62,12 @@ const DelivredOrder = ({order}) => {
 
   return (
   <div>
+    <h2>Les commandes terminées</h2>
   <Table striped bordered hover responsive className="table-sm">
         <thead>
           <tr>
             <th>ID</th>
-            <th>User</th>
+            <th><input type="text"></input>User</th>
             <th>created_at</th>
             <th>Commandes</th>
             <th>Date de livraison</th>
@@ -98,7 +77,6 @@ const DelivredOrder = ({order}) => {
             <th>Numéro de téléphone</th>
             <th>total</th>
             <th>status</th>
-            
             <th>delivred_at</th>
           </tr>
         </thead>
@@ -115,6 +93,7 @@ const DelivredOrder = ({order}) => {
                   <td>{order.heure}</td>
                   <td>{order.livraison}</td>
                   <td>{order.user.ville} {order.user.City} {order.user.codePostal}</td>
+                  <td>{order.user.phoneNumber}</td>
                   <td>{order.total} DT</td>
                   <td> <Button onClick={() => dispatch(updateOrders(order._id))}>valider</Button>
                       

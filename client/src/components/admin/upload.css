@@ -101,6 +101,7 @@
 
 .file--danger > label:active {
   background-color: hsl(348, 100%, 91%);
+ 
 }
 
 .file--disabled {

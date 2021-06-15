@@ -15,7 +15,7 @@ const categoryReducer = (state = initialState, action) => {
 case DELETE_CATEGORY_SUCESS:
   return{...state, isLoading:false, categories: state.categories.filter(el=>el._id !==action.payload._id)}
   case UPDATE_CATEGORY_SUCESS:
-    return {...state, isLoading:false, categories: state.categories.map((el)=>el._id==action.payload._id? action.payload:el)}
+    return {...state, isLoading:false, categories: state.categories.map((el)=>el._id===action.payload._id? action.payload:el)}
     
     
   case GET_ALL_CATEGORIES_LOADING:
@@ -29,7 +29,7 @@ case DELETE_CATEGORY_SUCESS:
   case ADD_CATEGORY_FAILED:
   case GET_CATEGORY_FAILED:
   case UPDATE_CATEGORY_FAILED:
-  return { ... state, isLoading: false, errors:action.payload}
+  return { ...state, isLoading: false, errors:action.payload}
   default: 
   return state;
   }

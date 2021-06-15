@@ -10,7 +10,6 @@ import {
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import DialogContent from "@material-ui/core/DialogContent";
-import { useHistory } from "react-router";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -34,7 +33,6 @@ const ModalAddIngredient = () => {
     price: null,
     category: null,
   });
-  const history = useHistory();
   const showModal = () => {
     setVisible(true);
   };
@@ -160,6 +158,7 @@ const ModalAddIngredient = () => {
                 <img
                   src={url}
                   style={{ height: "100px", width: "150px", padding: "15px" }}
+                  alt=""
                 />
               ) : null}
             </div>

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Modal, Button } from "antd";
-import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import {
   createCategory,
@@ -15,7 +14,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 
 import DialogContent from "@material-ui/core/DialogContent";
-import { useHistory } from "react-router";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -35,7 +33,6 @@ const ModalAddCategory = () => {
   const [url, setUrl] = React.useState(null);
 
   const dispatch = useDispatch();
-  const history = useHistory();
   const showModal = () => {
     setVisible(true);
   };
@@ -110,6 +107,7 @@ const ModalAddCategory = () => {
               <img
                 src={url}
                 style={{ height: "100px", width: "150px", padding: "15px" }}
+                alt=""
               />
             ) : null}
           </div>

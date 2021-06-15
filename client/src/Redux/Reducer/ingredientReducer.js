@@ -28,7 +28,7 @@ switch (action.type) {
 case ADD_INGREDIENT_SUCESS: 
 return { ...state, isLoading:false ,ingredients: [...state.ingredients, action.payload]}
 case GET_ALL_INGREDIENT_SUCESS:
-return{ ... state, isLoading: false, ingredients:action.payload}
+return{ ...state, isLoading: false, ingredients:action.payload}
 case DELETE_INGREDIENT_SUCESS: 
 return { ...state, isLoading: false, ingredients: state.ingredients.filter(el=>el._id !==action.payload._id)}
 case GET_INGREDIENT_SUCESS: 

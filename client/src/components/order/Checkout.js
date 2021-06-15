@@ -1,28 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import {  Carousel } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
-import { resetCommande, updateCommande } from '../../Redux/Actions/Orders/commandeActions'
+import { resetCommande} from '../../Redux/Actions/Orders/commandeActions'
 import { addOrder } from '../../Redux/Actions/Orders/order'
 import image1 from '../../assets/images/3.jpg'
 import image2 from '../../assets/images/1.jpg'
 import image3 from '../../assets/images/2.jpg'
-import { Header } from '../LandingPag.js/header'
 import Navigation from '../LandingPag.js/navigation'
-import { useHistory } from 'react-router'
 
 const Checkout = () => {
   const dispatch = useDispatch()
-  const history=useHistory()
   const panier = useSelector(state => state.commandeReducer)
   
-  const token=localStorage.getItem('token')
   useEffect(() => {
     dispatch(addOrder(panier))
      setTimeout(() => {
 
       dispatch(resetCommande())}
     , 3000); 
-  }, [dispatch])
+  }, [dispatch, panier])
 
 
   const [index, setIndex] = useState(0);

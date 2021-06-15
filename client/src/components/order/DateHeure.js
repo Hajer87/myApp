@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { DateTimePicker } from "@progress/kendo-react-dateinputs";
 
-const Date_Heure = ({handleDetails}) => {
+const DateHeure = ({handleDetails}) => {
   
 
   return (
@@ -14,4 +14,4 @@ const Date_Heure = ({handleDetails}) => {
     </div>
   );
 };
-export default Date_Heure
+export default DateHeure

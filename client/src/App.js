@@ -13,13 +13,14 @@ import Commandes from "./components/admin/Commandes/Commandes";
 import Panier from "./components/order/Panier";
 import UsersList from "./components/admin/Users/UsersList";
 import '@progress/kendo-theme-default/dist/all.css';
+import Register from "./components/Authentification/Register";
 function App() {
   return (
     <div>
      
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/signUp" component={SignUp} />
+        <Route path="/signUp" component={Register} />
         <Route path="/login" component={Login} />
         <PrivateRoute path="/panier" component={Panier} />
         <PrivateRoute path="/checkout" component={Checkout} />

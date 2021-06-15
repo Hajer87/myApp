@@ -14,9 +14,9 @@ const AdminNav = () => {
           
           </Nav>
           <Nav>
-            <Nav.Link href="#deets">gestion des commandes</Nav.Link>
-            <Nav.Link href="#deets">Liste des utilisateurs</Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
+            <Nav.Link href="/admin/commandes">gestion des commandes</Nav.Link>
+            <Nav.Link href="/admin/userlist">Liste des utilisateurs</Nav.Link>
+            <Nav.Link eventKey={2} href="/admin/productlist">
               gestion des produits
             </Nav.Link>
           </Nav>

@@ -52,11 +52,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     display: 'grid',
     gridTemplateColumns: '30% 70%',
-    height: 224,
+    height: 400,
+    margin: 20
+    
    
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
+    fontSize: "xXLarge",
+    letterSpacing: 3
   },
 }));
 

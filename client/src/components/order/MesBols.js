@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BsTrash, BsXCircle } from "react-icons/bs";
 import ButtonValidation from './ButtonValiation'

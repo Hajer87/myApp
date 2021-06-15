@@ -55,7 +55,7 @@ return(
         
       {
 
-!(tab.length==1)?
+!(tab.length===1)?
 !(content.includes(ingredient))?
 //button add
 <a href="#commande"><button style={{background: "transparent", border: "none" }} onClick={()=>{handleClickAdd(ingredient)}}> {ingredient.name}</button></a>

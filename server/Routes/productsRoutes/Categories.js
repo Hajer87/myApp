@@ -49,12 +49,11 @@ upload.single('image'),
             ],
           });
       }
-      const info=JSON.parse(name)
-      const category = new Categories({name:info, image: `${req.protocol}://${req.get('host')}/uploads/categories/${req.file.filename}` });
-      
+      const body=JSON.parse(req.body.info)
+      const category = new Categories({
+name:body.name, image: `${req.protocol}://${req.get('host')}/uploads/categories/${req.file.filename}` });
 
       await category.save();
-      console.log(info)
     } catch (err) {
       console.log(err.message);
       res.status(500).send("server error");
@@ -94,14 +93,14 @@ router.delete('/:id', authAdmin, async (req,res)=>{
 // update Catégory
 router.put('/:id',authAdmin, upload.single('image'), async (req,res)=>{
   try{
+    const {info, image}=req.body
 console.log((req.body))
-   
 const body = req.file ?
     {
       ...JSON.parse(req.body.info),
-      image: `${req.protocol}://${req.get('host')}/uploads/categories/${req.file.filename}`
-    } : { ...req.body };
-  Categories.findByIdAndUpdate({ _id: req.params.id }, {$set:body}, {new:true})
+     image: `${req.protocol}://${req.get('host')}/uploads/categories/${req.file.filename}`
+    } : { ...req.body }; 
+  Categories.findByIdAndUpdate({ _id: req.params.id }, {...body})
     .then(() => res.status(200).json({ message: 'Category  modifié !'}))
   }catch (err) {
     console.log(err.message);

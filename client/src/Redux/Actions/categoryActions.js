@@ -22,17 +22,18 @@ payload: response.data
 
 
 // create a category
-export const createCategory=(name,image)=>async (dispatch) =>{
+export const createCategory=(info,image)=>async (dispatch) =>{
     setAuthToken()
-    let formData = new FormData()
-    await formData.append("name", JSON.stringify(name)) 
-    await formData.append("image", image)
-    console.log(formData)
 try{
+  
 dispatch({
 type: ADD_CATEGORY_LOADING
 })
-
+let formData = new FormData()
+    
+  await formData.append("info", JSON.stringify(info)) 
+  await formData.append("image", image)
+  console.log(formData)
 
 const response= await axios.post ('http://localhost:5000/categories/newCategory',formData,  { headers: { 'Content-Type': 'multipart/form-data' }});
 await dispatch({
@@ -96,21 +97,21 @@ payload: err.response.data.errors,
 //Update category
 export const updateCategory=(id, info, image)=> async (dispatch)=>{
     setAuthToken()
+    
+   
     try {
       dispatch({
         type: UPDATE_CATEGORY_LOADING,
       });
-      const formData = new FormData()
-      formData.append('info', JSON.stringify(info))
-        formData.append('image', image)
-const body=
-     (image)? 
-        { formData
-      }
+    
+      let formData = new FormData()
+      await formData.append("info", JSON.stringify(info)) 
+      console.log(formData)
+      await formData.append("image", image)
+      console.log(formData)
+ 
         
-        : info
-        
-        const response = await axios.put(`http://localhost:5000/categories/${id}`,body);
+        const response = await axios.put(`http://localhost:5000/categories/${id}`,formData);
 
     
       

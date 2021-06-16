@@ -50,8 +50,8 @@ export const createIngredient = (data, image) => async (dispatch) => {
       type: ADD_INGREDIENT_LOADING,
     });
     const formData = new FormData()
-    formData.append('data', JSON.stringify(data))
-    formData.append('image', image)
+    await formData.append('data', JSON.stringify(data))
+    await formData.append('image', image)
     const response = await axios.post("http://localhost:5000/ingredients/newIngredient", formData,  { headers: { 'Content-Type': 'multipart/form-data' }});;
     
    await dispatch({
@@ -120,14 +120,14 @@ try {
 
     formData.append('info', JSON.stringify(info))
     formData.append('image', image) 
-    const body=
+    /* const body=
      (image)? 
         { formData
       }
         
-        : info
+        : info */
     
-  const response = await axios.put(`http://localhost:5000/ingredients/${id}`,body);
+  const response = await axios.put(`http://localhost:5000/ingredients/${id}`,formData);
 
   await dispatch({
     type: UPDATE_INGREDIENT_SUCCESS,

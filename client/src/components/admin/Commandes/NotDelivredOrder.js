@@ -16,10 +16,7 @@ import {
 import { getCategories } from "../../../Redux/Actions/categoryActions";
 import { getIngredients } from "../../../Redux/Actions/ingredientActions";
 import getUsers from "../../../Redux/Actions/usersAction";
-import Loading from "../../Loading";
-import AdminNav from "../AdminNav/AdminNav";
-import Delivred from "./DelivredOrder";
-import NotDelivred from "./NotDelivredOrder";
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -87,17 +84,31 @@ const handleUpdate=()=>{
     dispatch(getOrders())
   }, 2000);
 }
+
+const [userInput, setUserInput]=useState('')
+const handleChangeUserInput=(e)=>{
+  setUserInput(e.target.value)
+}
+const [dateSearch, setDateSearch]=useState(" ")
+const dateHandler=(e)=>{
+  setDateSearch(e.target.value)
+}
   return (
   <div>
   <Table striped bordered hover responsive className="table-sm">
         <thead>
           <tr>
             <th>ID</th>
-            <th>User</th>
+            <th>User<br/>
+            <input type="text" onChange={handleChangeUserInput}></input>
+            </th>
             <th>created_at</th>
             <th>Commandes</th>
-            <th>Date de livraison</th>
+            <th>Date de livraison
+              <input value= {dateSearch} onChange={dateHandler}></input>
+            </th>
             <th>heure de livraison</th>
+            
             <th>livraison</th>
             <th>address</th>
             <th>Numéro de téléphone</th>
@@ -109,18 +120,31 @@ const handleUpdate=()=>{
         </thead>
                 <tbody>
           {orders
-            ? orders.filter((order)=>order.isDelivered===false).map((order, index) => (
+            ? orders
+            
+            .filter((order)=>
+            order.isDelivered===false 
+            )
+/*             .filter((order)=>order.date.includes(dateSearch)) 
+ */            
+            .map((order, index) => (
               !order.isDelelvred?
                 <tr key={order._id}>
                   <td>{order._id}</td>
-                  <td>{order.user.firstname} {order.user.lastname}</td>
+                  
+                  <td>
+                    {order.user.firstname} {order.user.lastname}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
                <td><OrderDetails key={index} order={order} /></td> 
                   <td>{order.date}</td>
                   <td>{order.heure}</td>
                   <td>{order.livraison}</td>
                   <td>{order.user.ville} {order.user.City} {order.user.codePostal}</td>
-                  <td>{order.total} DT</td>
+                  
+                  <td>
+                    {order.user.phoneNumber}
+                    </td>
+                    <td>{order.total} DT</td>
                   <td> <Button onClick={() => dispatch(updateOrders(order._id))}>valider</Button>
                       
                    

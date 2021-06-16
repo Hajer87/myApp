@@ -81,7 +81,7 @@ export default function Total({ setData, data }) {
   return (
     <div>
       <button
-        className="button"
+        
         variant="secondary"
         size="lg"
         block

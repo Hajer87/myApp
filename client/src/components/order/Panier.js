@@ -30,6 +30,7 @@ const Panier = ({ setShowCart }) => {
   const history = useHistory();
   const [data, setData] = useState({
     date: new window.Date(),
+    heure:null,
     livraison: null,
     total: null,
   });

@@ -7,6 +7,7 @@ import { getOrders } from '../../Redux/Actions/Orders/order'
 import getUsers from '../../Redux/Actions/usersAction'
 import Navigation from '../LandingPag.js/navigation'
 import AdminNav from './AdminNav/AdminNav'
+import Loading from '../../components/Loading'
 
 import Sidebar from './Sidebar'
 
@@ -24,13 +25,16 @@ const Dashboard = () => {
    
   }, [dispatch])
 
-  const orders = useSelector(state => state.OrdersReducer.orders)
+  const orders = useSelector(state => state.OrdersReducer)
   console.log(orders)
   localStorage.setItem('orders', JSON.stringify(orders))
-  const users=useSelector(state=>state.usersReducer.users)
-  localStorage.setItem('users',JSON.stringify(users)   )
+  const users=useSelector(state=>state.usersReducer)
+  localStorage.setItem('users',JSON.stringify(users.users)   )
 
   return (
+   ( users.isLoading || orders.isLoading )? 
+      <Loading/>
+    :
     <div>
     <AdminNav/>
       <Sidebar/>

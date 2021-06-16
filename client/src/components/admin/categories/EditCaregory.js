@@ -1,16 +1,16 @@
 
 import React, { useEffect } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Modal } from "antd";
+import { useDispatch } from "react-redux";
+import {  getCategories, updateCategory } from "../../../Redux/Actions/categoryActions";
+import {
+  getIngredients,
+  
+} from "../../../Redux/Actions/ingredientActions";
 import TextField from "@material-ui/core/TextField";
-import DialogContent from "@material-ui/core/DialogContent";
 import { makeStyles } from "@material-ui/core/styles";
-
-import { useDispatch} from "react-redux";
-import {  getCategories, updateCategory } from '../../../Redux/Actions/categoryActions'
-
+import DialogContent from "@material-ui/core/DialogContent";
 import { VscZoomIn } from "react-icons/vsc";
-import { getIngredients } from "../../../Redux/Actions/ingredientActions";
-import Modal from "antd/lib/modal/Modal";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -19,15 +19,38 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export default function EditCategory({id, img}) {
+const EditCategory = ({id, img, nom}) => {
   const classes = useStyles();
 
   const [visible, setVisible] = React.useState(false);
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [modalText, setModalText] = React.useState("Content of the modal");
-  const [image, setImage] = React.useState(null);
+  const [image, setImage] = React.useState(img);
   const [url, setUrl] = React.useState(null);
-  const [info, setInfo] = React.useState(null);
+
+  const [info, setInfo] = React.useState({name: nom});
+
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const handleOk = () => {
+    setModalText("The modal will be closed after two seconds");
+    setConfirmLoading(true);
+    dispatch(updateCategory(id,info, image));
+    setTimeout(() => {
+      dispatch(getCategories())
+      setVisible(false);
+     
+      setConfirmLoading(false);
+    }, 2000);
+  }
+
+  const handleCancel = () => {
+    console.log("Clicked cancel button");
+    setVisible(false);
+    
+  };
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,41 +58,23 @@ export default function EditCategory({id, img}) {
     dispatch(getIngredients());
   }, [dispatch]);
 
-  const showModal = () => {
-    setVisible(true);
-  };
-
-  const handleCancel = () => {
-    console.log("Clicked cancel button");
-    setVisible(false);
-  };
 
   const selectImageToUpload = (e) => {
     setImage(e.target.files[0]);
     setUrl(URL.createObjectURL(e.target.files[0]));
   };
-  const handleOk = () => {
-    
-    setModalText("The modal will be closed after two seconds");
-    setConfirmLoading(true);
-    dispatch(updateCategory(id, info));  
-      setTimeout(() => {
-        dispatch(getCategories())
 
-      setVisible(false);
-      setConfirmLoading(false);
-/*         window.location.reload();
-*/      }, 2000);
-  
-};
-  
-  const changeHandler = (e) => setInfo( {[e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setInfo({ ...info, [e.target.name]: e.target.value });
+  };
 
+  
 
   return (
-    <div>
-      <VscZoomIn onClick={showModal}/>
-      
+    <>
+      <VscZoomIn onClick={showModal}>
+       
+      </VscZoomIn>
       <Modal
         title=""
         visible={visible}
@@ -84,19 +89,22 @@ export default function EditCategory({id, img}) {
               margin="dense"
               name="name"
               id="name"
+              value={info.name}
               label="name"
               type="text"
-              onChange={changeHandler}
+              onChange={handleChange}
               fullWidth
-              required
+             
             />
 
-<div class="file file--upload">
+           
+
+            <div class="file file--upload">
               <label></label>
               <input
                 id="input-file"
                 type="file"
-                required
+               
                 onChange={selectImageToUpload}
               ></input>
 
@@ -104,12 +112,14 @@ export default function EditCategory({id, img}) {
                 <img
                   src={url}
                   style={{ height: "100px", width: "150px", padding: "15px" }}
+                  alt=""
                 />
               ) : null}
             </div>
-            </form>
+          </form>
         </DialogContent>
-      </Modal> 
-    </div>
+      </Modal>
+    </>
   );
-}
+};
+export default EditCategory;

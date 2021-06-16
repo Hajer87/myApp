@@ -12,6 +12,7 @@ const UserCard = ({ user }) => {
     <div className="userCard">
       <Card>
   <Card.Header>{user.firstname} {user.lastname}</Card.Header>
+
   <Card.Body>
     <Card.Title><a href={`mailto:${user.email}`}>{user.email}</a></Card.Title>
     <Card.Text>

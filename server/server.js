@@ -1,6 +1,6 @@
 const express=require('express');
 var cors = require('cors')
-
+const path = require('path');
 var app = express()
  
 app.use(cors())
@@ -10,8 +10,7 @@ const connectDB= require('./config/dbConnect');
 connectDB(); 
 
 app.use(express.json())
-app.use('/uploads', express.static('uploads'));
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/signUp', require('./Routes/authRoutes/SignUp'));
 app.use('/login', require('./Routes/authRoutes/login'));

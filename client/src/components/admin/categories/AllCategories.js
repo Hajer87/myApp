@@ -12,7 +12,6 @@ import { deleteIngredient, getIngredient, getIngredients } from '../../../Redux/
 import EditIngredient from './EditIngredient';
 import EditCategory from './EditCaregory';
 import Loading from '../../Loading';
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -59,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
+    fontFamily: 'Dela Gothic One, cursive',
     fontSize: "xXLarge",
     letterSpacing: 3
   },
@@ -111,7 +111,7 @@ export default function AllCategories() {
 
 {(categories)? categories.map((category, index)=>
  <TabPanel value={value} index={index}>
-    <EditCategory id={category._id} img={category.image}/> 
+    <EditCategory id={category._id} img={category.image} nom={category.name}/> 
     <VscClose onClick={()=>deleteHandlerCat(category._id)}/> 
 {category.ingredient.map((el)=>
 <div style={{display:"grid", gridTemplateColumns:"80% 10% 10%", letterSpacing:'10px'}}>

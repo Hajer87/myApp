@@ -5,6 +5,7 @@ import Loading from "../../Loading";
 import UserCard from "./UserCard";
 import '../../../assets/style/UserList.css'
 import UserSearch from "./UserSearch";
+import AdminNav from "../AdminNav/AdminNav";
 const UsersList = ({history}) => {
   const [search, setSearch]=React.useState('')
   const users=JSON.parse(localStorage.getItem('users'))
@@ -14,6 +15,7 @@ const UsersList = ({history}) => {
   } 
   return (
 <>
+<AdminNav/>
 <UserSearch search={search} setSearch={setSearch}/>
 
     <div className="UserList">

@@ -2,9 +2,9 @@ import React from 'react'
 import {  Card, Container, Form } from 'react-bootstrap'
 import '../../assets/style/panier.css'
 import 'rc-time-picker/assets/index.css';
-import DateHeure from './DateHeure';
 import '../../assets/style/details.css'
-
+import Date from './Date..js';
+import Time from './Time.js';
 
 const Livraison = ({setData, data, setShowLocation}) => {
 
@@ -28,7 +28,8 @@ setData({...data, [e.target.name]:e.target.value})
   <Form.Group controlId="exampleForm.ControlInput1">
     
   <Form.Label >Date et heure de livraison </Form.Label>
-   <DateHeure handleDetails={handleDetails}/>
+   <Date handleDetails={handleDetails}/>
+   <Time data={data} setData={setData}/>
    
 
   </Form.Group>

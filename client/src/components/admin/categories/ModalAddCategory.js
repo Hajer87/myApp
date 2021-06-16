@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+/* import React, { useEffect } from "react";
 import { Modal, Button } from "antd";
 import { useDispatch } from "react-redux";
 import {
@@ -28,7 +28,7 @@ const ModalAddCategory = () => {
   const [visible, setVisible] = React.useState(false);
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [modalText, setModalText] = React.useState("Content of the modal");
-  const [name, setName] = React.useState("");
+  const [name, setName] = React.useState(null);
   const [image, setImage] = React.useState(null);
   const [url, setUrl] = React.useState(null);
 
@@ -113,6 +113,134 @@ const ModalAddCategory = () => {
           </div>
           </form>
 
+        </DialogContent>
+      </Modal>
+    </>
+  );
+}; */
+/* export default ModalAddCategory;  */
+
+
+import React, { useEffect } from "react";
+import { Modal } from "antd";
+import { Button, FormControl } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { createCategory, getCategories } from "../../../Redux/Actions/categoryActions";
+import {
+  getIngredients,
+  createIngredient,
+} from "../../../Redux/Actions/ingredientActions";
+import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
+import DialogContent from "@material-ui/core/DialogContent";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: "100%",
+    },
+  },
+}));
+const ModalAddCategory = () => {
+  const classes = useStyles();
+
+  const [visible, setVisible] = React.useState(false);
+  const [confirmLoading, setConfirmLoading] = React.useState(false);
+  const [modalText, setModalText] = React.useState("Content of the modal");
+  const [image, setImage] = React.useState(null);
+  const [url, setUrl] = React.useState(null);
+
+  const [info, setInfo] = React.useState({name:null});
+
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const handleOk = () => {
+    setModalText("The modal will be closed after two seconds");
+    setConfirmLoading(true);
+    dispatch(createCategory(info,image));
+    setTimeout(() => {
+      dispatch(getCategories())
+      setVisible(false);
+      setInfo(null)
+      setImage(null)
+      setConfirmLoading(false);
+    }, 2000);
+  }
+
+  const handleCancel = () => {
+    console.log("Clicked cancel button");
+    setVisible(false);
+    setInfo(null)
+      setImage(null)
+  };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCategories());
+    dispatch(getIngredients());
+  }, [dispatch]);
+
+  const categories = useSelector((state) => state.categoryReducer.categories);
+
+  const selectImageToUpload = (e) => {
+    setImage(e.target.files[0]);
+    setUrl(URL.createObjectURL(e.target.files[0]));
+  };
+
+  const handleChange = (e) => {
+   setInfo({...info, [e.target.name]:e.target.value});
+  };
+
+  
+
+  return (
+    <>
+      <Button className="button" onClick={showModal}>
+        Ajouter une catégory
+      </Button>
+      <Modal
+        title=""
+        visible={visible}
+        onOk={handleOk}
+        confirmLoading={confirmLoading}
+        onCancel={handleCancel}
+      >
+        <DialogContent>
+          <form className={classes.root} noValidate autoComplete="off">
+            <TextField
+              autoFocus
+              margin="dense"
+              name="name"
+              id="name"
+              label="name"
+              type="text"
+              onChange={handleChange}
+              fullWidth
+             
+            />
+
+           
+
+            <div class="file file--upload">
+              <label></label>
+              <input
+                id="input-file"
+                type="file"
+                required
+                onChange={selectImageToUpload}
+              ></input>
+
+              {image ? (
+                <img
+                  src={url}
+                  style={{ height: "100px", width: "150px", padding: "15px" }}
+                  alt=""
+                />
+              ) : null}
+            </div>
+          </form>
         </DialogContent>
       </Modal>
     </>

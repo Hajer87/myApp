@@ -53,13 +53,16 @@ const DelivredOrder = ({order}) => {
     dispatch(getIngredients());
    
     dispatch(getUsers());
-  }, [dispatch]);
+  }, [dispatch]); 
 
   const orders = useSelector((state) => state.OrdersReducer.orders);
   const handleDelete = (id) => {
     dispatch(deleteOrder(id));
   };
-
+const [date, setDate]=useState('')
+const dateHandler=(e)=>{
+  setDate(e.target.value)
+}
   return (
   <div>
     <h2>Les commandes terminées</h2>
@@ -67,11 +70,12 @@ const DelivredOrder = ({order}) => {
         <thead>
           <tr>
             <th>ID</th>
-            <th><input type="text"></input>User</th>
+            <th>User</th>
             <th>created_at</th>
             <th>Commandes</th>
-            <th>Date de livraison</th>
-            <th>heure de livraison</th>
+            <th>Date de livraison
+              <input onChange={dateHandler}></input>
+            </th>
             <th>livraison</th>
             <th>address</th>
             <th>Numéro de téléphone</th>
@@ -82,7 +86,8 @@ const DelivredOrder = ({order}) => {
         </thead>
                 <tbody>
           {orders
-            ? orders.filter((order)=>order.isDelivered===true).map((order, index) => (
+            ? orders.filter((order)=>order.isDelivered===true)
+            .map((order, index) => (
               !order.isDelelvred?
                 <tr key={order._id}>
                   <td>{order._id}</td>
@@ -90,7 +95,6 @@ const DelivredOrder = ({order}) => {
                   <td>{order.createdAt.substring(0, 10)}</td>
                   <td><OrderDetails key={index} order={order} /></td> 
                   <td>{order.date}</td>
-                  <td>{order.heure}</td>
                   <td>{order.livraison}</td>
                   <td>{order.user.ville} {order.user.City} {order.user.codePostal}</td>
                   <td>{order.user.phoneNumber}</td>

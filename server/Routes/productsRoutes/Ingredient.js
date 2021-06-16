@@ -36,14 +36,11 @@ router.post(
     authAdmin, 
     upload.single('image'),
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    } 
+    
     try {
       const { name, category, image, description} = req.body;
       console.log(req.body)
-     /*  let Item= await Ingredient.findOne({ name });
+       let Item= await Ingredient.findOne({ name });
       if (Item) {
         return res
           .status(400)
@@ -52,12 +49,11 @@ router.post(
               { msg: "this Ingredient exists in our database" },
             ],
           });
-      } */
+      } 
       
     const path= `${req.protocol}://${req.get('host')}/uploads/ingredients/${req.file.filename}`
 const body=JSON.parse(req.body.data)
-      const ingredient = new Ingredient({name:body.name, description: body.description, price: body.price, category:body.category, image:path}); 
-     
+  const ingredient = new Ingredient({name:body.name, description: body.description, price: body.price, category:body.category, image:path}); 
       
       await ingredient.save();
       console.log(ingredient)
@@ -105,14 +101,18 @@ router.delete('/:id', authAdmin, async (req,res)=>{
  // update ingredient
 router.put('/:id',authAdmin, upload.single('image'), async (req,res)=>{
   try{
-console.log((req.body))
+console.log(req.body)
    
-const body = req.file ?
+ const body = 
+ (req.file) ?
     {
-      ...JSON.parse(req.body.info),
+     ...JSON.parse(req.body.info),
       image: `${req.protocol}://${req.get('host')}/uploads/ingredients/${req.file.filename}`
-    } : { ...req.body };
-  await Ingredient.findByIdAndUpdate({ _id: req.params.id }, {$set: body  }, {new:true})
+    } 
+    : 
+    { ...req.body };
+    console.log(req.params.id)
+  await Ingredient.findByIdAndUpdate({ _id: req.params.id }, {...body} )
     .then(() => res.status(200).json({ message: 'Ingredient modifié !'}))
   }catch (err) {
     console.log(err.message);

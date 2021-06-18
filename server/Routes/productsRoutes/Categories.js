@@ -30,6 +30,13 @@ const upload=multer({
 router.post(
   "/newCategory",
 authAdmin, 
+check("name", "veuillez insérer le nom de la catégory")
+.isLength({ min: 3 })
+.trim()
+.escape(),
+
+
+
 upload.single('image'), 
   async (req, res) => {
     const errors = validationResult(req);

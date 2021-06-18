@@ -10,7 +10,7 @@ const authAdmin = require("../../middelwares/authAdmin");
 
 router.get("/user", Authmiddelware, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password -_id -__v")
+    const user = await User.findById(req.user.id).select("-password -__v")
     if (!user) {
       return res.status(404).json({ errors: [{ msg: "user not found" }] });
     }

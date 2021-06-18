@@ -10,7 +10,7 @@ import OrdersReducer from '../Reducer/order/OrdersReducer'
 import orderUpdateReducer from '../Reducer/order/orderUodateReducer'
 import commandeReducer from '../Reducer/order/commandeRducer'
 import usersReducer from './usersReducer'
-
+import findOrderReducer from './order/FindOrderReducer'
 
 
 
@@ -23,6 +23,7 @@ ingredientReducer,
 contentReducer, 
 orderReducer,
 OrdersReducer, 
+findOrderReducer,
 orderUpdateReducer,
 commandeReducer, 
 usersReducer })

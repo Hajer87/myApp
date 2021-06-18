@@ -1,11 +1,10 @@
-
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { Button, Table } from "react-bootstrap";
+import { Button, Container, Table } from "react-bootstrap";
 import OrderDetails from "./OrderDetails";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,10 +12,6 @@ import {
   getOrders,
   updateOrders,
 } from "../../../Redux/Actions/Orders/order";
-import { getCategories } from "../../../Redux/Actions/categoryActions";
-import { getIngredients } from "../../../Redux/Actions/ingredientActions";
-import getUsers from "../../../Redux/Actions/usersAction";
-
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -63,113 +58,116 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NotDelivredOrder = ({order}) => {
-                         const dispatch = useDispatch();
+const NotDelivredOrder = ({orders}) => {
+  const dispatch = useDispatch();
 
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(getOrders());
     dispatch(getCategories());
     dispatch(getIngredients());
    
     dispatch(getUsers());
-  }, [dispatch]);
+  }, [dispatch]); */
 
-  const orders = useSelector((state) => state.OrdersReducer.orders);
+  
   const handleDelete = (id) => {
     dispatch(deleteOrder(id));
   };
-const handleUpdate=()=>{
-  dispatch(updateOrders(order._id))
-  setTimeout(() => {
-    dispatch(getOrders())
-  }, 2000);
-}
+  const handleUpdate = (id) => {
+    dispatch(updateOrders(id));
+    setTimeout(() => {
+      dispatch(getOrders());
+    }, 2000);
+  };
 
-const [userInput, setUserInput]=useState('')
-const handleChangeUserInput=(e)=>{
-  setUserInput(e.target.value)
+  const [userInput, setUserInput] = useState(null);
+  const handleChangeUserInput = (e) => {
+    setUserInput(e.target.value);
+  };
+  const [dateSearch, setDateSearch] = useState("");
+  const dateHandler = (e) => {
+    setDateSearch(e.target.value);
+  };
+const array=orders.orders
+const handleClick=()=>{
 }
-const [dateSearch, setDateSearch]=useState(" ")
-const dateHandler=(e)=>{
-  setDateSearch(e.target.value)
-}
+  
+  
   return (
-  <div>
-  <Table striped bordered hover responsive className="table-sm">
+    <div>
+   
+              <input placeholder='chercher une date' value={dateSearch} onChange={dateHandler}></input>
+              <button onClick={handleClick}>chercher</button>
+      <Table id="myTable" striped bordered hover responsive className="table-sm">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>User<br/>
-            <input type="text" onChange={handleChangeUserInput}></input>
+            <th >ID</th>
+            <th>
+              User
+              <br />
+              <input placeholder='chercher un utilisateur' type="text" onChange={handleChangeUserInput}></input>
             </th>
+            <th>email</th>
             <th>created_at</th>
             <th>Commandes</th>
-            <th>Date de livraison
-              <input value= {dateSearch} onChange={dateHandler}></input>
+            <th>
+              Date de livraison
+              
             </th>
             <th>heure de livraison</th>
-            
+
             <th>livraison</th>
             <th>address</th>
             <th>Numéro de téléphone</th>
             <th>total</th>
             <th>status</th>
-            
-            <th>delivred_at</th>
           </tr>
         </thead>
-                <tbody>
-          {orders
-            ? orders
-            
-            .filter((order)=>
-            order.isDelivered===false 
-            )
-/*             .filter((order)=>order.date.includes(dateSearch)) 
- */            
-            .map((order, index) => (
-              !order.isDelelvred?
-                <tr key={order._id}>
-                  <td>{order._id}</td>
-                  
-                  <td>
-                    {order.user.firstname} {order.user.lastname}</td>
-                  <td>{order.createdAt.substring(0, 10)}</td>
-               <td><OrderDetails key={index} order={order} /></td> 
-                  <td>{order.date}</td>
-                  <td>{order.heure}</td>
-                  <td>{order.livraison}</td>
-                  <td>{order.user.ville} {order.user.City} {order.user.codePostal}</td>
-                  
-                  <td>
-                    {order.user.phoneNumber}
-                    </td>
-                    <td>{order.total} DT</td>
-                  <td> <Button onClick={() => dispatch(updateOrders(order._id))}>valider</Button>
-                      
-                   
-                  </td>
-                  <td>
-                    {order.isDelivered ? (
-                      order.deliveredAt.substring(0, 10)
-                    ) : (
-                      <i
-                        className="fas fa-times"
-                        style={{ color: "red" }}
-                        onClick={() =>handleUpdate}
-                      />
-                    )}
-                  </td>
-                  
+        <tbody>
+          {orders.orders 
+            ? array
+
+                .filter((order) => order.isDelivered === false )
+
+                .map((order, index) =>
+                
+                    <tr key={order._id}>
+                      <td>{order._id}</td>
+
+                      <td>
+                        {order.user.firstname} {order.user.lastname}
+                      </td>
+                      <td><a href={`mailto:${order.user.email}`}>{order.user.email}</a></td>
+                      <td>{order.createdAt.substring(0, 10)}</td>
+                      <td>
+                        <OrderDetails key={index} order={order} />
+                      </td>
+                      <td>{order.date}</td>
+                      <td>{order.heure}</td>
+                      <td>{order.livraison}</td>
+                      <td>
+                        {order.user.ville} {order.user.City}{" "}
+                        {order.user.codePostal}
+                      </td>
+
+                      <td>{order.user.phoneNumber}</td>
+                      <td>{order.total} DT</td>
+                      <td>
+                        <Button
+                          onClick={() => dispatch(updateOrders(order._id))}
+                        >
+                          terminée
+                        </Button>
+                      </td>
+                    </tr>
+                    
                  
-                </tr>
-                :null
-              ))
-            : null} 
+                )
+            : null}
         </tbody>
-      </Table>                   
-  </div>
-  )
+      </Table>
+    </div>
+  );
 };
 
 export default NotDelivredOrder;

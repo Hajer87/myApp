@@ -46,7 +46,7 @@ res.status(500).send("server error");
 
 router.get(
   "/",
-   authAdmin , async (req, res) => {
+   async (req, res) => {
     try {
       const orders = await Order.find({}).populate("user")
       

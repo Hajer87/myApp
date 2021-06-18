@@ -15,6 +15,8 @@ import { Button } from "@material-ui/core";
 import Bar from '../components/LandingPag.js/bar/Bar'
 import AdminButton from "./LandingPag.js/AdminButton";
 import Navigation from "./LandingPag.js/navigation";
+import { getOrders } from "../Redux/Actions/Orders/order";
+import { getIngredient, getIngredients } from "../Redux/Actions/ingredientActions";
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -33,11 +35,14 @@ const auth=useSelector(state=>state.AuthReducer.user)
     
        setLandingPageData(JsonData); 
       dispatch(load_user()) 
+      dispatch(getOrders())
+      dispatch(getIngredients())
  
 
     
   }, []);
-
+const orders=useSelector(state=>state.OrdersReducer.orders)
+localStorage.setItem('orders', JSON.stringify(orders))
   const myBol = useSelector((state) => state.contentReducer.content);
   const [open, setOpen] = useState(false);
   const [cart, setCart] = useState(false);

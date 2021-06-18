@@ -19,11 +19,11 @@ import Loading from "../../Loading";
 import AdminNav from "../AdminNav/AdminNav";
 import DelivredOrder from "./DelivredOrder";
 import NotDelivredOrder from "./NotDelivredOrder";
-
-
+import { Link } from "react-router-dom";
+import Tab from "./table/Tab"
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
+  
   return (
     <div
       role="tabpanel"
@@ -69,30 +69,37 @@ const useStyles = makeStyles((theme) => ({
 
 
   const Commandes = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
   
-    useEffect(() => {
-      dispatch(getOrders());
-      dispatch(getCategories());
-      dispatch(getIngredients());
-     
-      dispatch(getUsers());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(getCategories())
+    dispatch(getIngredients())
+    dispatch(getOrders())
+    dispatch(getUsers())
+   
+  }, [dispatch])
   
-    const orders = useSelector((state) => state.OrdersReducer.orders);
+  const orders = JSON.parse(localStorage.getItem('orders'));
+  console.log(orders)
+/*   const sortedTable=orders.orders.sort((a,b)=>b.date-a.date)*/
     const handleDelete = (id) => {
       dispatch(deleteOrder(id));
     };
+ 
+    
   return (
+    orders.isLoading ?
+    <Loading/>
+    :(
     <div>
-        <AdminNav/>
+      
+       {/*  <AdminNav/>
+        <Link to="/admin/commandes/historique"><button >historique des commandes terminées</button></Link> */}
      <h2>Les commandes en cours</h2>
+<NotDelivredOrder orders={orders} />
 
-<NotDelivredOrder/>
-<br/>
-<DelivredOrder/>
     </div>
-  )
+  ))
 }
 
 export default Commandes

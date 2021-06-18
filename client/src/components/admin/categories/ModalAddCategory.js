@@ -123,12 +123,12 @@ const ModalAddCategory = () => {
 
 import React, { useEffect } from "react";
 import { Modal } from "antd";
-import { Button, FormControl } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import '../../../assets/style/admin.css'
 import { useDispatch, useSelector } from "react-redux";
 import { createCategory, getCategories } from "../../../Redux/Actions/categoryActions";
 import {
   getIngredients,
-  createIngredient,
 } from "../../../Redux/Actions/ingredientActions";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
@@ -143,7 +143,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const ModalAddCategory = () => {
   const classes = useStyles();
-
+const [errors, setErrors]=React.useState(null)
   const [visible, setVisible] = React.useState(false);
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [modalText, setModalText] = React.useState("Content of the modal");
@@ -151,7 +151,7 @@ const ModalAddCategory = () => {
   const [url, setUrl] = React.useState(null);
 
   const [info, setInfo] = React.useState({name:null});
-
+const cat=useSelector(state=>state.categoryReducer)
   const showModal = () => {
     setVisible(true);
   };
@@ -160,6 +160,11 @@ const ModalAddCategory = () => {
     setModalText("The modal will be closed after two seconds");
     setConfirmLoading(true);
     dispatch(createCategory(info,image));
+if (cat.errors) {
+  setErrors(cat.errors)
+
+}
+else{
     setTimeout(() => {
       dispatch(getCategories())
       setVisible(false);
@@ -168,7 +173,7 @@ const ModalAddCategory = () => {
       setConfirmLoading(false);
     }, 2000);
   }
-
+  }
   const handleCancel = () => {
     console.log("Clicked cancel button");
     setVisible(false);
@@ -197,9 +202,9 @@ const ModalAddCategory = () => {
 
   return (
     <>
-      <Button className="button" onClick={showModal}>
+      <button className="button categoryButton" onClick={showModal}>
         Ajouter une catégory
-      </Button>
+      </button>
       <Modal
         title=""
         visible={visible}
@@ -215,13 +220,11 @@ const ModalAddCategory = () => {
               name="name"
               id="name"
               label="name"
-              type="text"
-              onChange={handleChange}
+/*               type="text"
+ */              onChange={handleChange}
               fullWidth
              
             />
-
-           
 
             <div class="file file--upload">
               <label></label>
@@ -240,6 +243,8 @@ const ModalAddCategory = () => {
                 />
               ) : null}
             </div>
+            {errors && errors.map((error)=> <h5 className="errors">{error.msg}</h5>)}
+
           </form>
         </DialogContent>
       </Modal>

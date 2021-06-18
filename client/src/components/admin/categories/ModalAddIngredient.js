@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Modal } from "antd";
+import '../../../assets/style/admin.css'
 import { Button, FormControl } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../../Redux/Actions/categoryActions";
@@ -79,7 +80,7 @@ const ModalAddIngredient = () => {
 
   return (
     <>
-      <Button className="button" onClick={showModal}>
+      <Button className="button ingredientButton" onClick={showModal}>
         Ajouter un ingrédient
       </Button>
       <Modal

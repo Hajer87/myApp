@@ -1,5 +1,6 @@
 import axios from "axios";
 import setAuthToken from "../../../helpers/setAuthToken";
+import { getIngredients } from "../ingredientActions";
 import {
   ADD_ORDER_FAILED,
   ADD_ORDER_LOADING,
@@ -10,6 +11,9 @@ import {
   GET_ORDERS_FAILED,
   GET_ORDERS_LOADING,
   GET_ORDERS_SUCESS,
+  GET_ORDER_FAILED,
+  GET_ORDER_LOADING,
+  GET_ORDER_SUCCESS,
   UPDATE_ORDER_FAILED,
   UPDATE_ORDER_LOADING,
   UPDATE_ORDER_SUCCESS,
@@ -47,10 +51,12 @@ export const getOrders = () => async (dispatch) => {
       type: GET_ORDERS_LOADING,
     });
     const response = await axios.get("http://localhost:5000/orders");
-    dispatch({
+    console.log(response)
+   await  dispatch({
       type: GET_ORDERS_SUCESS,
       payload: response.data,
     });
+    await dispatch(getIngredients())
   }catch (err) {
     dispatch({
       type: GET_ORDERS_FAILED,
@@ -72,6 +78,7 @@ export const getOrders = () => async (dispatch) => {
    
    await dispatch({ type: UPDATE_ORDER_SUCCESS , payload: data });
    await dispatch(getOrders())
+   
 
   } catch (err) {
     dispatch({
@@ -100,6 +107,26 @@ export const deleteOrder = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: DELETE_ORDER_FAILED,
+      payload: err.response.data.errors,
+    });
+  }
+};
+
+export const getOrder = (id) => async (dispatch) => {
+  setAuthToken();
+
+  try {
+    dispatch({
+      type: GET_ORDER_LOADING,
+    });
+    const response = await axios.get("http://localhost:5000/orders", id);
+    dispatch({
+      type: GET_ORDER_SUCCESS,
+      payload: response.data,
+    });
+  }catch (err) {
+    dispatch({
+      type: GET_ORDER_FAILED,
       payload: err.response.data.errors,
     });
   }

@@ -5,9 +5,7 @@ import {
   DELETE_ORDER_SUCCESS,
   GET_ORDERS_FAILED,
   GET_ORDERS_SUCESS,
-  UPDATE_ORDER_FAILED,
-  UPDATE_ORDER_LOADING,
-  UPDATE_ORDER_SUCCESS,
+  
 } from "../../Actions/types";
 
 const initialState = {
@@ -28,8 +26,8 @@ const ordersReducer = (state = initialState, action) => {
     case ADD_ORDER_LOADING:
     
       return { ...state, isLoading: true };
+
     case DELETE_ORDER_FAILED:
-    
     case GET_ORDERS_FAILED:
       return { ...state, isLoading: false, errors: action.payload };
 

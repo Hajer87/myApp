@@ -66,19 +66,17 @@ const useStyles = makeStyles((theme) => ({
 export default function Register({ history }) {
   const classes = useStyles();
 
-
-
-
   const auth = useSelector((state) => state.AuthReducer);
   localStorage.getItem("isAuth");
   const dispatch = useDispatch();
+  const [errors, setErrors] = useState(null);
 
   useEffect(() => {
     if (auth.isAuth) {
       localStorage.setItem("isAuth", auth.isAuth);
       history.push("/");
-    }
-  }, [auth.isAuth, history]);
+    } else setErrors(auth.errors);
+  }, [auth.isAuth, history, auth.errors]);
 
   const [newData, setNewData] = useState({
     firstname: "",
@@ -88,13 +86,13 @@ export default function Register({ history }) {
     codePostal: "",
     email: "",
     password: "",
-    phoneNumber:""
+    phoneNumber: "",
   });
 
   const handleChange = (e) => {
     setNewData({ ...newData, [e.target.name]: e.target.value });
   };
- const handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(Register_User(newData));
   };
@@ -113,6 +111,7 @@ export default function Register({ history }) {
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
+              onFocus={() => setErrors(null)}
               variant="outlined"
               margin="normal"
               required
@@ -120,12 +119,13 @@ export default function Register({ history }) {
               id="firstname"
               label="Prénom"
               name="firstname"
-             
               /*  autoComplete="email" */
               autoFocus
               onChange={handleChange}
+              required
             />
             <TextField
+              onFocus={() => setErrors(null)}
               variant="outlined"
               margin="normal"
               required
@@ -138,6 +138,7 @@ export default function Register({ history }) {
               onChange={handleChange}
             />
             <TextField
+              onFocus={() => setErrors(null)}
               variant="outlined"
               margin="normal"
               required
@@ -150,6 +151,7 @@ export default function Register({ history }) {
               onChange={handleChange}
             />
             <TextField
+              onFocus={() => setErrors(null)}
               variant="outlined"
               margin="normal"
               required
@@ -162,6 +164,7 @@ export default function Register({ history }) {
               onChange={handleChange}
             />
             <TextField
+              onFocus={() => setErrors(null)}
               variant="outlined"
               margin="normal"
               required
@@ -177,6 +180,7 @@ export default function Register({ history }) {
             <Row>
               <Col>
                 <TextField
+                  onFocus={() => setErrors(null)}
                   variant="outlined"
                   margin="normal"
                   required
@@ -191,6 +195,7 @@ export default function Register({ history }) {
               </Col>
               <Col>
                 <TextField
+                  onFocus={() => setErrors(null)}
                   variant="outlined"
                   margin="normal"
                   required
@@ -205,6 +210,7 @@ export default function Register({ history }) {
               </Col>
               <Col>
                 <TextField
+                  onFocus={() => setErrors(null)}
                   variant="outlined"
                   margin="normal"
                   required
@@ -217,10 +223,9 @@ export default function Register({ history }) {
                 />
               </Col>
             </Row>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+
+            {errors &&
+              errors.map((error) => <h5 className="errors">{error.msg}</h5>)}
             <Button
               type="submit"
               fullWidth
@@ -231,21 +236,6 @@ export default function Register({ history }) {
             >
               Enregistrer
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
           </form>
         </div>
       </Grid>

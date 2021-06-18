@@ -4,14 +4,15 @@
     margin: 0;
     outline: none;
 }
-body{
+/* body{
     font-family: 'Roboto', sans-serif !important;
     height:100vh;
     color: #3a3e42 !important;
    
-}
+} */
 .AppForm{
     margin-top: 100px;
+    font-size: x-large;
 }
 .AppForm .AppFormLeft h1{
     font-size: 35px;
@@ -68,6 +69,14 @@ body{
 }
 .AppForm .AppFormRight p{
     z-index: 1;
+}
+.errors{
+    margin: 10px;
+color: red;
+font-size:small;
+}
+.signUp{
+    font-size: large;
 }
 
 

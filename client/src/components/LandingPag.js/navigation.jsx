@@ -32,7 +32,8 @@ const Navigation = (props) => {
           
 
             {Auth.isAuth  ? (
-            
+            <>
+            <Nav.Link href="/profile"> Profile</Nav.Link>
                 
                   <Nav.Link
                     onClick={() => {
@@ -41,7 +42,7 @@ const Navigation = (props) => {
                   >
                     <BsBoxArrowRight />
                   </Nav.Link>
-                
+                </>
               
             ) : (
               <>

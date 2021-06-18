@@ -13,21 +13,31 @@ const dotenv = require("dotenv").config({ path: "../../Config/.env" });
 router.post(
   "/",
   // firstname and lastname must be alphabetic
-  check("firstname", "firstname is required")
+  check("firstname", "veuillez insérer votre prénom")
     .isLength({ min: 3 })
     .trim()
     .escape(),
-  check("lastname", "lastname is required")
+  check("lastname", "veuillez insérer votre nom")
     .isLength({ min: 3 })
     .trim()
     .escape(),
   // email must be format email
-  check("email", "please enter a valid email").isEmail().normalizeEmail(),
+  check("email", "veuillez insérer un email valide ").isEmail().normalizeEmail(),
   // password must be at least 5 chars long
   check(
     "password",
-    "please enter a password with 8 or more characters"
+    "veuillez insérer un mot de passe de minimum 8 caractères"
   ).isLength({ min: 8 }),
+  check('ville', "veuillez insérer votre ville de résidence").isLength({ min: 3 })
+  .trim()
+  .escape(),
+  check('city', "veuillez insérer votre cité").isLength({ min: 3 })
+  .trim()
+  .escape(),
+  check('codePostal', "veuillez insérer un code postale correct").isLength({ min: 3 })
+  .isNumeric()
+  .trim()
+  .escape(),
   async (req, res) => {
     // Finds the validation errors in this request and wraps them in an object with handy functions
     const errors = validationResult(req);

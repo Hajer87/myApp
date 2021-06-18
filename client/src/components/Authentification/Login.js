@@ -14,6 +14,7 @@ const Login = ({history}) => {
   const dispatch = useDispatch();
   const [info, setInfo] = useState({ email: '', password: '' });
   const { email, password } = info;
+  const[errors, setErrors]=useState(null)
 
 
     useEffect(() => {
@@ -21,13 +22,16 @@ const Login = ({history}) => {
       dispatch(load_user()) 
       
       history.push("/");}
-     
+     else
+      {setErrors(auth.errors)}
+      
 
    
-  },[ auth.isAuth,  history]);  
+  },[ auth.isAuth,  history, auth.errors]);  
 
     const submitHandler = (e) => {
     e.preventDefault();
+    
     dispatch(login_user(info));
 
   };
@@ -48,40 +52,47 @@ const Login = ({history}) => {
         <div className="row">
           <div className="col-md-6 d-flex justify-content-center align-items-center">
             <div className="AppFormLeft">
-              <h1>Login</h1>
+              <h2>Connexion</h2>
               <div onSubmit={submitHandler} className="form-group position-relative mb-4">
                 <input 
-                
+                onFocus={()=>setErrors(null)} 
+
                 type="text" 
                 className="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none" 
                 id="username" 
                 placeholder="Username" 
                 name="email"
                 value={email}
+                required
                 onChange={changeHandler}/>
                 <i className="fa fa-user-o" />
               </div>
               <div className="form-group position-relative mb-4">
                 <input 
-                
+                onFocus={()=>setErrors(null)} 
+
                 type="password" 
                 className="form-control border-top-0 border-right-0 border-left-0 rounded-0 shadow-none" 
                 id="password" 
                 placeholder="Password"  
                 name="password"
                 value={password}
-                onChange={changeHandler}/>
+                onChange={changeHandler}
+                required
+                />
                 <i className="fa fa-key" />
               </div>
+              {errors && errors.map((error)=> <h5 className="errors">{error.msg}</h5>)}
+
               <button 
               onClick={submitHandler} 
               className="btn btn-success btn-block shadow border-0 py-2 text-uppercase ">
                 Login
               </button>
               <p className="text-center mt-5">
-                Don't have an account?
-                <Link to={"/SignUp"}>
-                  Create your account
+                vous n'êtes pas encore inscrit?
+                <Link to={"/SignUp"} className="signUp">
+                  <a>s'enregistrer</a>
                 </Link>
               </p>
             </div>

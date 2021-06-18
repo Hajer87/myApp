@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import ModalAddIngredient from "./ModalAddIngredient";
 import ModalAddCategory from "./ModalAddCategory";
 import getUsers  from "../../../Redux/Actions/usersAction";
+import { Col, Container, Row } from "react-bootstrap";
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -20,16 +21,22 @@ const Categories = () => {
   return (
     <div>
       <AdminNav/>
-      <div  style={{marginTop:"50px"}}>
+      <Container style={{marginTop:"50px"}}>
       <h2>Gestion des catégories et des ingrédients</h2>
-    <div >
+    <div>
       <AllCategories />
-      </div> 
-      <div style={{display:"grid", gridTemplateRows:"80% 20%"}}>
+      </div>
+      <Container>
+      <Row >
+        <Col>
             <ModalAddCategory />
+            </Col>
+            <Col>
            <ModalAddIngredient />
-           </div>
-           </div>  
+           </Col>
+           </Row>
+           </Container> 
+           </Container>  
     </div>
   );
 };

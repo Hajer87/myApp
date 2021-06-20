@@ -21,7 +21,7 @@ const Categories = () => {
   return (
     <div>
       <AdminNav/>
-      <Container style={{marginTop:"50px"}}>
+      <div style={{marginTop:"50px"}}>
       <h2>Gestion des catégories et des ingrédients</h2>
     <div>
       <AllCategories />
@@ -36,7 +36,7 @@ const Categories = () => {
            </Col>
            </Row>
            </Container> 
-           </Container>  
+           </div>  
     </div>
   );
 };

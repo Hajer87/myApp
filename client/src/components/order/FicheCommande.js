@@ -12,7 +12,7 @@ const FicheCommande = ({commande}) => {
   <Card.Header className="titre">
     <span><h2>Commande</h2></span>
 </Card.Header> 
-{commande.map((el,index) =>
+{commande.map((el,key) =>
 <>
     <Card.Body >
        

@@ -12,6 +12,7 @@ import {
   getOrders,
   updateOrders,
 } from "../../../Redux/Actions/Orders/order";
+import orderReducer from "../../../Redux/Reducer/order/orderReducer";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -80,7 +81,7 @@ const NotDelivredOrder = ({orders}) => {
     }, 2000);
   };
 
-  const [userInput, setUserInput] = useState(null);
+  const [userInput, setUserInput] = useState("");
   const handleChangeUserInput = (e) => {
     setUserInput(e.target.value);
   };
@@ -88,16 +89,14 @@ const NotDelivredOrder = ({orders}) => {
   const dateHandler = (e) => {
     setDateSearch(e.target.value);
   };
-const array=orders.orders
-const handleClick=()=>{
-}
-  
-  
+
+
+
   return (
     <div>
    
-              <input placeholder='chercher une date' value={dateSearch} onChange={dateHandler}></input>
-              <button onClick={handleClick}>chercher</button>
+              
+              
       <Table id="myTable" striped bordered hover responsive className="table-sm">
         <thead>
           <tr>
@@ -112,7 +111,8 @@ const handleClick=()=>{
             <th>Commandes</th>
             <th>
               Date de livraison
-              
+             <br/>
+             <input placeholder='chercher une date' value={dateSearch} onChange={dateHandler}></input>
             </th>
             <th>heure de livraison</th>
 
@@ -125,9 +125,12 @@ const handleClick=()=>{
         </thead>
         <tbody>
           {orders.orders 
-            ? array
+            ? orders.orders
 
-                .filter((order) => order.isDelivered === false )
+            .filter((order) => order.isDelivered === false )
+
+                .filter((order)=>order.date.includes(dateSearch))
+                .filter((order)=>order.user.firstname.toUpperCase().includes(userInput.toUpperCase()) || order.user.lastname.toUpperCase().includes(userInput.toUpperCase()) || order.user.email.toUpperCase().includes(userInput.toUpperCase()))
 
                 .map((order, index) =>
                 
@@ -152,10 +155,13 @@ const handleClick=()=>{
 
                       <td>{order.user.phoneNumber}</td>
                       <td>{order.total} DT</td>
+                      <td> {order.isDelivered}</td>
                       <td>
+                     
                         <Button
                           onClick={() => dispatch(updateOrders(order._id))}
                         >
+                         
                           terminée
                         </Button>
                       </td>

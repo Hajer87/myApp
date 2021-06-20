@@ -1,0 +1,55 @@
+/* table {
+  border-spacing: 0.5rem;
+  width: 100%;
+  margin-top: 50px;
+}
+
+th, td {
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+  background-color: black;
+  color: white;
+} */
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Prompt:wght@600&family=Source+Code+Pro:wght@200&display=swap');
+table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  padding-left:100px;
+   padding-right: 50px; 
+  font-size: 0.9em;
+  font-family: 'Prompt', sans-serif;
+  letter-spacing: 3px;
+  font-size:medium;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+  text-align: center;
+}
+table thead tr input{
+  color: black;
+}
+table th, table td {
+  padding: 12px 15px;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+li{
+  padding:10px;
+}

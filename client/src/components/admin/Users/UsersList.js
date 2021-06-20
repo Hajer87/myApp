@@ -6,6 +6,8 @@ import UserCard from "./UserCard";
 import '../../../assets/style/UserList.css'
 import UserSearch from "./UserSearch";
 import AdminNav from "../AdminNav/AdminNav";
+import { Avatar } from "@material-ui/core";
+import { GrUserAdmin, GrUserExpert } from "react-icons/gr";
 const UsersList = ({history}) => {
   const [search, setSearch]=React.useState('')
   const users=JSON.parse(localStorage.getItem('users'))
@@ -16,21 +18,18 @@ const UsersList = ({history}) => {
   return (
 <>
 <AdminNav/>
-<UserSearch search={search} setSearch={setSearch}/>
+<UserSearch search={search} setSearch={setSearch} />
 
-    <div className="UserList">
-      { users.filter(
-        user =>
-        
-          user.email.toUpperCase().includes(search.toUpperCase())
-      ).map((user)=>
     
-      <UserCard user={user}/>)}
+      
     
-    {/* <Table striped bordered hover responsive className="table-sm">
+    
+    
+   <Table striped bordered hover responsive className="table-sm">
         <thead>
           <tr>
             <th>ID</th>
+            <th>avatar</th>
             <th>NAME</th>
             <th>EMAIL</th>
             <th>Adresse</th>
@@ -40,27 +39,30 @@ const UsersList = ({history}) => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users
+          .filter((user)=>user.firstname.toUpperCase().includes(search.toUpperCase()) || user.lastname.toUpperCase().includes(search.toUpperCase())|| user.email.toUpperCase().includes(search.toUpperCase()) || user._id.includes(search)).map((user) => 
             <tr key={user._id}>
               <td>{user._id}</td>
+              <td><Avatar alt="Remy Sharp" src={user.avatar} /></td>
               <td>{user.firstname} {user.lastname}</td>
               <td>
                 <a href={`mailto:${user.email}`}>{user.email}</a>
               </td>
-              <td>{user.ville} , {user.city}, code postal: {user.codePostal}</td>
+              <td>{user.ville} , {user.city}, {user.codePostal}</td>
+              <td>{user.phoneNumber}</td>
               <td>
                 {user.isAdmin ? (
-                  <i className="fas fa-check" style={{ color: "green" }} />
+                 <GrUserAdmin style={{color:"vert"}}/>
                 ) : (
-                  <i className="fas fa-times" style={{ color: "red" }} />
+                  <GrUserExpert style={{color:"red"}}/>
                 )}
               </td>
              
             </tr>
-          ))}
+      )}
         </tbody>
-      </Table>  */}
-    </div>
+      </Table>  
+    
     </>
   );
 };

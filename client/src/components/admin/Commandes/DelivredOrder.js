@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import { Button, Table } from "react-bootstrap";
+import { TabContainer, Table } from "react-bootstrap";
 import OrderDetails from "./OrderDetails";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,106 +7,118 @@ import {
   getOrders,
   updateOrders,
 } from "../../../Redux/Actions/Orders/order";
-import { getCategories } from "../../../Redux/Actions/categoryActions";
-import { getIngredients } from "../../../Redux/Actions/ingredientActions";
-import getUsers from "../../../Redux/Actions/usersAction";
+import AdminNav from "../AdminNav/AdminNav";
+import '../../../assets/style/Tab.css'
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-const DelivredOrder = ({ orders}) => {
+const DelivredOrder = () => {
   const dispatch = useDispatch();
+  const orders = useSelector((state)=>state.OrdersReducer)
 
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(getOrders());
     dispatch(getCategories());
     dispatch(getIngredients());
-
+   
     dispatch(getUsers());
-  }, [dispatch]);
+  }, [dispatch]); */
 
-  const handleDelete = (id) => {
-    dispatch(deleteOrder(id));
+
+  const handleUpdate = (id) => {
+    dispatch(updateOrders(id));
+    setTimeout(() => {
+      dispatch(getOrders());
+    }, 2000);
   };
-  const [date, setDate] = useState("");
+
+  const [userInput, setUserInput] = useState("");
+  const handleChangeUserInput = (e) => {
+    setUserInput(e.target.value);
+  };
+  const [dateSearch, setDateSearch] = useState("");
   const dateHandler = (e) => {
-    setDate(e.target.value);
+    setDateSearch(e.target.value);
   };
+const array=orders.orders
+
+const handleSubmit=(e)=>{
+  e.preventDefault();
+}    
+
   return (
     <div>
-      <h2>Les commandes terminées</h2>
-      <Table striped bordered hover responsive className="table-sm">
+   
+   <AdminNav/>       
+        <TabContainer>      
+      <Table  striped bordered hover responsive className="table-sm">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>User</th>
-            <th>created_at</th>
+           
+            <th>
+              User
+              <br />
+              <input onSubmit={handleSubmit} placeholder='chercher un utilisateur' type="text" onChange={handleChangeUserInput}></input>
+            </th>
+            <th>email</th>
+            <th id="smallCell">created_at</th>
             <th>Commandes</th>
             <th>
               Date de livraison
-              <input onChange={dateHandler}></input>
+             <br/>
+             <input onSubmit={handleSubmit} placeholder='chercher une date' value={dateSearch} onChange={dateHandler}></input>
             </th>
+            <th  id="smallCell">heure de livraison</th>
+
             <th>livraison</th>
             <th>address</th>
             <th>Numéro de téléphone</th>
-            <th>total</th>
-            <th>status</th>
-            <th>delivred_at</th>
+            <th >total</th>
+            <th>date de livraison</th>
           </tr>
         </thead>
         <tbody>
-          {orders
-            ? orders
-                .filter((order) => order.isDelivered === true)
-                .map((order, index) => (
-                  <tr key={order._id}>
-                    <td>{order._id}</td>
-                    <td>
-                      {order.user.firstname} {order.user.lastname}
-                    </td>
-                    <td>{order.createdAt.substring(0, 10)}</td>
-                    <td>
-                      {" "}
-                      <OrderDetails key={index} order={order} />{" "}
-                    </td>
-                    <td>{order.date}</td>
-                    <td>{order.livraison}</td>
-                    <td>
-                      {order.user.ville} {order.user.City}{" "}
-                      {order.user.codePostal}
-                    </td>
-                    <td>{order.user.phoneNumber}</td>
-                    <td>{order.total} DT</td>
+          {orders.orders 
+            ? orders.orders
 
-                    <td>{order.deliveredAt.substring(0, 10)}</td>
-                  </tr>
-                ))
+                .filter((order) => order.isDelivered === true )
+                .filter((order)=>order.date.includes(dateSearch))
+                .filter((order)=>order.user.firstname.toUpperCase().includes(userInput.toUpperCase()) || order.user.lastname.toUpperCase().includes(userInput.toUpperCase()) || order.user.email.toUpperCase().includes(userInput.toUpperCase()))
+
+                .map((order, index) =>
+                
+                    <tr key={order._id}>
+                    
+
+                      <td>
+                        {order.user.firstname} {order.user.lastname}
+                      </td>
+                      <td><a href={`mailto:${order.user.email}`}>{order.user.email}</a></td>
+                      <td>{order.createdAt.substring(0, 10)}</td>
+                      <td>
+                        <OrderDetails key={index} order={order} />
+                      </td>
+                      <td>{order.date}</td>
+                      <td>{order.heure}</td>
+                      <td>{order.livraison}</td>
+                      <td>
+                        {order.user.ville} {order.user.City}{" "}
+                        {order.user.codePostal}
+                      </td>
+
+                      <td>{order.user.phoneNumber}</td>
+                      <td>{order.total} DT</td>
+                      <td>
+                      {order.deliveredAt.substring(0, 10)}
+                      </td>
+                    </tr>
+                    
+                 
+                )
             : null}
         </tbody>
       </Table>
+      </TabContainer>
     </div>
   );
 };

@@ -15,6 +15,7 @@ import UsersList from "./components/admin/Users/UsersList";
 import Register from "./components/Authentification/Register";
 import Profile from "./components/Profile";
 import DelivredOrder from "./components/admin/Commandes/DelivredOrder";
+
 function App() {
   return (
     <div>
@@ -29,8 +30,7 @@ function App() {
         //admin
         <PrivateRoute exact path="/admin" component={Dashboard} />
         <PrivateRoute exact path="/admin/commandes" component={Commandes} />
-{/*         <PrivateRoute path="/admin/commandes/historique" component={DelivredOrder} />
- */}
+      <PrivateRoute path="/admin/commandes/historique" component={DelivredOrder} />
         <PrivateRoute exact path="/admin/productlist" component={Categories} />
         <PrivateRoute path="/admin/userlist" component={UsersList} />
       </Switch>

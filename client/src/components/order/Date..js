@@ -14,9 +14,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Date({handleDetails}) {
+export default function Date({data, setData}) {
   const classes = useStyles();
-
+const handleChange=(e)=>{
+  setData({...data, [e.target.name]: e.target.value})
+}
   return (
     <form className={classes.container} noValidate>
       <TextField
@@ -30,8 +32,7 @@ export default function Date({handleDetails}) {
          
         }}
         name="date"
-        minDate={new window.Date()}
-        onChange={handleDetails}
+        onChange={handleChange}
       />
     </form>
   );

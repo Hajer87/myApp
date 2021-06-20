@@ -25,12 +25,11 @@ const Panier = ({ setShowCart }) => {
     useEffect(() => {
   localStorage.setItem('commandes', JSON.stringify(panier))
   }, [])  
-  /* const cart=useSelector(state=>state.commandeReducer) */
-  const [showLocation, setShowLocation] = useState(false);
+ 
   const history = useHistory();
   const [data, setData] = useState({
     date: new window.Date(),
-    heure:null,
+   address:null,
     livraison: null,
     total: null,
   });
@@ -75,7 +74,6 @@ const Panier = ({ setShowCart }) => {
         {panier.length !== 0 ? (
           <>
             <Livraison
-              setShowLocation={setShowLocation}
               data={data}
               setData={setData}
             />

@@ -9,6 +9,7 @@ heure:null,
 tel:null,
 address: null,
 livraison: null,
+
 total:0,
 
 
@@ -31,13 +32,13 @@ case RESET_COMMANDE:
 return initialState 
 
 case ADD_DETAILS:
-return{...state, livraison: action.payload.livraison, date:action.payload.date, heure:action.payload.heure, total:action.payload.total, tel:action.payload.tel, status: "ordered"}
+return{...state, livraison: action.payload.livraison, date:action.payload.date, heure:action.payload.heure, total:action.payload.total, tel:action.payload.tel, address: action.payload.address ,status: "ordered"}
  case LIVRAISON:
 return {...state, livraison:action.payload}
 case TOTAL:
   return {...state, total: action.payload}
-case LOCALISATION: 
-return{...state, address: action.payload} 
+/* case LOCALISATION: 
+return{...state, address: action.payload}  */
 case GET_SHIPPING_PRICE_SUCESS:
   return{...state, shipping:action.payload}
 case GET_SHIPPING_PRICE_FAILED:

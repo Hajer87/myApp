@@ -80,13 +80,8 @@ const UserCard = ({ user }) => {
     dispatch(getIngredients());
   }, [dispatch]);
   const orders = JSON.parse(localStorage.getItem("orders"));
-  const commandes = orders.filter((order) => order.user._id == user._id);
-  const ingredients = useSelector(
-    (state) => state.ingredientReducer.ingredients
-  );
-  console.log(commandes);
-  /* const tab= commandes.map((cmd)=>cmd.commandes.map((el)=>el.map((ing)=>ingredients.find((e)=>e._id===ing))))
-console.log(tab) */
+  
+
   return orders.isLoading ? (
     <Loading />
   ) : (

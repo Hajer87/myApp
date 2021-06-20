@@ -14,10 +14,10 @@ const Checkout = () => {
   
   useEffect(() => {
     dispatch(addOrder(panier))
-     setTimeout(() => {
+     /* setTimeout(() => {
 
       dispatch(resetCommande())}
-    , 3000); 
+    , 3000);  */
   }, [dispatch, panier])
 
 

@@ -49,9 +49,9 @@ export default function Total({ setData, data }) {
   useEffect(() => {
     dispatch(getShippingPrice());
   }, [dispatch]);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const shipping = useSelector((state) => state.commandeReducer.shipping);
-
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -77,7 +77,6 @@ export default function Total({ setData, data }) {
     setOpen(false);
     history.push("/checkout");
   };
-  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <div>
       <button

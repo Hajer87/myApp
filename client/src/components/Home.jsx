@@ -11,12 +11,9 @@ import Team from './LandingPag.js/Team'
 import { useDispatch, useSelector } from "react-redux";
 import { load_user } from "../Redux/Actions/AuthActions";
 import Loading from "./Loading";
-import { Button } from "@material-ui/core";
-import Bar from '../components/LandingPag.js/bar/Bar'
-import AdminButton from "./LandingPag.js/AdminButton";
 import Navigation from "./LandingPag.js/navigation";
 import { getOrders } from "../Redux/Actions/Orders/order";
-import { getIngredient, getIngredients } from "../Redux/Actions/ingredientActions";
+import { getIngredients } from "../Redux/Actions/ingredientActions";
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -48,10 +45,10 @@ localStorage.setItem('orders', JSON.stringify(orders))
   const [cart, setCart] = useState(false);
   const [data, setData] = useState(null);
   const [showCart, setShowCart] = useState(false);
-  
+  const [count, setCount]=useState(0)
   return (
     <div>
-   <Navigation/>
+   <Navigation count={count}/>
       <Header data={landingPageData.Header} />
      
       <CategoryList
@@ -80,10 +77,12 @@ localStorage.setItem('orders', JSON.stringify(orders))
           open={open}
           panier={panier}
           setPanier={setPanier}
+          count={count}
+          setCount={setCount}
         />
       ) : null}
       {showCart ?
-      <Panier setShowCart={setShowCart}/>
+      <Panier setShowCart={setShowCart} count={count} setCount={setCount}/>
     : null}
      
       <Team data={landingPageData.Team} /> 

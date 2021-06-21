@@ -30,19 +30,12 @@ const upload=multer({
 router.post(
   "/newCategory",
 authAdmin, 
-check("name", "veuillez insérer le nom de la catégory")
-.isLength({ min: 3 })
-.trim()
-.escape(),
 
 
 
 upload.single('image'), 
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+   
     try {
       const {name, image}=req.body
           
@@ -52,7 +45,7 @@ upload.single('image'),
           .status(400)
           .json({
             errors: [
-              { msg: "Categorie exists in our database" },
+              { msg: "cette Catégory existe déjà dans notre base de données" },
             ],
           });
       }
@@ -61,6 +54,7 @@ upload.single('image'),
 name:body.name, image: `${req.protocol}://${req.get('host')}/uploads/categories/${req.file.filename}` });
 
       await category.save();
+      console.log(category)
     } catch (err) {
       console.log(err.message);
       res.status(500).send("server error");
@@ -101,13 +95,13 @@ router.delete('/:id', authAdmin, async (req,res)=>{
 router.put('/:id',authAdmin, upload.single('image'), async (req,res)=>{
   try{
     const {info, image}=req.body
-console.log((req.body))
+console.log((req.body.info))
 const body = req.file ?
     {
       ...JSON.parse(req.body.info),
      image: `${req.protocol}://${req.get('host')}/uploads/categories/${req.file.filename}`
-    } : { ...req.body }; 
-  Categories.findByIdAndUpdate({ _id: req.params.id }, {...body})
+    } :JSON.parse(req.body.info); 
+  Categories.findByIdAndUpdate({ _id: req.params.id }, body)
     .then(() => res.status(200).json({ message: 'Category  modifié !'}))
   }catch (err) {
     console.log(err.message);

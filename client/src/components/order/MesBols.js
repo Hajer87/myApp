@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     maxWidth: 345,
   },
 });
-const MesBols = ({ setCart, setOpen, setShowCart}) => {
+const MesBols = ({ setCart, setOpen, setShowCart ,count, setCount}) => {
   const classes = useStyles();
   const myBol = useSelector((state) => state.contentReducer.content);
 
@@ -61,7 +61,7 @@ console.log(commandes) */
         ))}
       </div>
 
-      <ButtonValidation  setOpen={setOpen} myBol={myBol} setShowCart={setShowCart}/>
+      <ButtonValidation   count={ count} setCount={setCount} setOpen={setOpen} myBol={myBol} setShowCart={setShowCart}/>
       
     </Container>
     

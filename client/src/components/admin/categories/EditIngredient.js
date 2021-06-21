@@ -176,7 +176,7 @@ const EditIngredient = ({ingredient}) => {
   const [modalText, setModalText] = React.useState("Content of the modal");
   const [image, setImage] = React.useState(null);
   const [url, setUrl] = React.useState(null);
-  const [info, setInfo] = React.useState(null);
+  const [info, setInfo] = React.useState(ingredient);
 
   const history = useHistory();
   const showModal = () => {
@@ -232,6 +232,7 @@ const EditIngredient = ({ingredient}) => {
         onOk={handleOk}
         confirmLoading={confirmLoading}
         onCancel={handleCancel}
+        /* ingredient={ingredient} */
       >
         <DialogContent>
           <form className={classes.root} noValidate autoComplete="off">
@@ -242,6 +243,7 @@ const EditIngredient = ({ingredient}) => {
               id="name"
               label="name"
               type="text"
+              value={info.name}
               onChange={handleChange}
               fullWidth
               required
@@ -254,6 +256,7 @@ const EditIngredient = ({ingredient}) => {
               id="description"
               label="description"
               type="text"
+              value={info.description}
               onChange={handleChange}
               fullWidth
             />
@@ -266,6 +269,7 @@ const EditIngredient = ({ingredient}) => {
               label="prix"
               type="Number"
               onChange={handleChange}
+        value={info.price}
               fullWidth
               required
             />
@@ -277,6 +281,7 @@ const EditIngredient = ({ingredient}) => {
               defaultValue="category"
               onChange={handleChange}
               placeholder="choisissez votre mode de livraison"
+              value={info.category}
               required
             >
               <option value="">Choisissez une category</option>

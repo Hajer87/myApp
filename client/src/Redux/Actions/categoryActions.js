@@ -83,9 +83,10 @@ dispatch({
 type: DELETE_CATEGORY_LOADING,
  });
 const response = await axios.delete(`http://localhost:5000/categories/${catId}`);
- dispatch({
+ await dispatch({
  type: DELETE_CATEGORY_SUCESS , payload : response.data,
  });
+ await dispatch(getCategories())
  } catch (err) {
 dispatch({
 type: DELETE_CATEGORY_FAILED,

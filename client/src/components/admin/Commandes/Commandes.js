@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
     :(
     <div>
         <AdminNav/>
-        <Link to="/admin/commandes/historique"><button >historique des commandes terminées</button></Link> 
+        <Link to="/admin/commandes/historique"><button className="btn" >historique des commandes terminées</button></Link> 
      <h2>Les commandes en cours</h2>
 <NotDelivredOrder orders={orders} />
 

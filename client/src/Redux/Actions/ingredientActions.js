@@ -17,6 +17,7 @@ import {
 } from "./types";
 import axios from 'axios'
 import setAuthToken from "../../helpers/setAuthToken";
+import { getCategories } from "./categoryActions";
 
 
 
@@ -58,7 +59,7 @@ export const createIngredient = (data, image) => async (dispatch) => {
       type: ADD_INGREDIENT_SUCESS,
       payload: response.data
     });
-    await dispatch(getIngredients())
+    dispatch(getCategories())
   } catch (err) {
     dispatch({
       type: ADD_INGREDIENT_FAILED,
@@ -80,7 +81,9 @@ export const deleteIngredient = (ingId) => async (dispatch) => {
       type: DELETE_INGREDIENT_SUCESS ,
       payload : response.data,
     });
-    await dispatch(getIngredients())
+
+    // await dispatch(getIngredients())
+    await dispatch(getCategories())
 
   } catch (err) {
     dispatch({
@@ -133,7 +136,7 @@ try {
     type: UPDATE_INGREDIENT_SUCCESS,
     payload: response.data,
   });
-  await dispatch(getIngredients())
+  await dispatch(getCategories())
 
 } catch (err) {
   dispatch({

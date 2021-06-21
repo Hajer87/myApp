@@ -123,7 +123,6 @@ const ModalAddCategory = () => {
 
 import React, { useEffect } from "react";
 import { Modal } from "antd";
-import { Button } from "react-bootstrap";
 import '../../../assets/style/admin.css'
 import { useDispatch, useSelector } from "react-redux";
 import { createCategory, getCategories } from "../../../Redux/Actions/categoryActions";
@@ -157,24 +156,30 @@ const cat=useSelector(state=>state.categoryReducer)
   };
 
   const handleOk = () => {
-    setModalText("The modal will be closed after two seconds");
-    setConfirmLoading(true);
-    dispatch(createCategory(info,image));
-if (cat.errors) {
-  setErrors(cat.errors)
+    
+    
+if (!info.name) {
+  setErrors("veuillez saisir le nom de la catégory")
 
 }
-else{
+else
+  {
+  setModalText("The modal will be closed after two seconds");
+    setConfirmLoading(true);
+  dispatch(createCategory(info,image));
     setTimeout(() => {
       dispatch(getCategories())
       setVisible(false);
-      setInfo(null)
+      
       setImage(null)
       setConfirmLoading(false);
     }, 2000);
   }
   }
   const handleCancel = () => {
+    setErrors(null)
+    setImage()
+    setInfo(null)
     console.log("Clicked cancel button");
     setVisible(false);
     setInfo(null)
@@ -202,7 +207,7 @@ else{
 
   return (
     <>
-      <button className="button categoryButton" onClick={showModal}>
+      <button  className="btn" onClick={showModal}>
         Ajouter une catégory
       </button>
       <Modal
@@ -216,6 +221,8 @@ else{
           <form className={classes.root} noValidate autoComplete="off">
             <TextField
               autoFocus
+              onFocus={() => setErrors(null)}
+
               margin="dense"
               name="name"
               id="name"
@@ -225,10 +232,13 @@ else{
               fullWidth
              
             />
+            <h5 className="errors">{errors}</h5>
 
             <div class="file file--upload">
               <label></label>
               <input
+                            onFocus={() => setErrors(null)}
+
                 id="input-file"
                 type="file"
                 required
@@ -243,8 +253,8 @@ else{
                 />
               ) : null}
             </div>
-            {errors && errors.map((error)=> <h5 className="errors">{error.msg}</h5>)}
-
+{/*             {errors && errors.map((error)=> <h5 className="errors">{error.msg}</h5>)}
+ */}
           </form>
         </DialogContent>
       </Modal>

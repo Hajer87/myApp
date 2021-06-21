@@ -21,11 +21,14 @@ const Categories = () => {
   return (
     <div>
       <AdminNav/>
+      
       <div style={{marginTop:"50px"}}>
       <h2>Gestion des catégories et des ingrédients</h2>
+     
     <div>
       <AllCategories />
       </div>
+      <br/>
       <Container>
       <Row >
         <Col>
@@ -35,7 +38,7 @@ const Categories = () => {
            <ModalAddIngredient />
            </Col>
            </Row>
-           </Container> 
+           </Container>
            </div>  
     </div>
   );

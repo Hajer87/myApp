@@ -8,7 +8,6 @@ import { updateUser, updateUserAvatar } from "../Redux/Actions/usersAction";
 import { MdModeEdit } from "react-icons/md";
 import Loading from "./Loading";
 import { Divider } from "antd";
-import { Avatar, CardMedia } from "@material-ui/core";
 
 const UserCard = ({ user }) => {
   //update name
@@ -27,7 +26,7 @@ const UserCard = ({ user }) => {
   //update email
   const [showEmail, setShowEmail] = useState(false);
   const [email, setEmail] = useState({
-    email: "",
+    email: user.email,
   });
   const changeEmailHandler = (e) => {
     setEmail({ ...email, [e.target.name]: e.target.value });

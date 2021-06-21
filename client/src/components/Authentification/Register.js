@@ -16,6 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { Register_User } from "../../Redux/Actions/AuthActions";
 import { Col, Row } from "react-bootstrap";
+import Navigation from "../LandingPag.js/navigation";
 
 function Copyright() {
   return (
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   },
   image: {
-    backgroundImage: "url(https://source.unsplash.com/1600x900/?nature,water)",
+    backgroundImage: "url(https://source.unsplash.com/collection/575196/healthy-food)",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
@@ -98,6 +99,8 @@ export default function Register({ history }) {
   };
 
   return (
+    <>
+    <Navigation/>
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -240,5 +243,6 @@ export default function Register({ history }) {
         </div>
       </Grid>
     </Grid>
+    </>
   );
 }

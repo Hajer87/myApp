@@ -20,15 +20,17 @@ import EditCategory from "./EditCaregory";
 import Loading from "../../Loading";
 import { Table } from "react-bootstrap";
 import '../../../assets/style/Tab.css'
+import ModalImage from "./ModalImage";
+import ModalImageIngredient from "./ModalImageIngredient";
 
 export default function AllCategories() {
  
   const dispatch = useDispatch();
+  const categories = useSelector((state) => state.categoryReducer.categories);
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getIngredients());
-  }, []);
-  const categories = useSelector((state) => state.categoryReducer.categories);
+  }, [dispatch]);
   const deleteHandler = (id) => {
     dispatch(deleteIngredient(id));
     /*   window.location.reload();
@@ -44,12 +46,13 @@ export default function AllCategories() {
     <Loading />
   ) : (
     <Table striped bordered hover responsive className="table-sm">
+      {console.log('render')}
       <thead>
         <tr>
           {categories.map((cat) => (
             <th >
-              {cat.name}{" "}
-              <br/>
+              <ModalImage cat={cat} />{" "}
+
               <EditCategory id={cat._id} img={cat.image} nom={cat.name} />
               <VscClose onClick={() => deleteHandlerCat(cat._id)} />{" "}
             </th>
@@ -61,11 +64,11 @@ export default function AllCategories() {
           <td>
             {cat.ingredient.map((el) => (
               <li>
-                {el.name}
-                <div>
+               <ModalImageIngredient el={el}/>
+              
                 <EditIngredient ingredient={el} />
                 <VscClose onClick={() => deleteHandler(el._id)} />{" "}
-                </div>
+                
               </li>
             ))}
           </td>

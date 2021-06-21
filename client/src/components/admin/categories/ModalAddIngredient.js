@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Modal } from "antd";
-import '../../../assets/style/admin.css'
+import "../../../assets/style/admin.css";
 import { Button, FormControl } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories } from "../../../Redux/Actions/categoryActions";
@@ -27,6 +27,7 @@ const ModalAddIngredient = () => {
   const [modalText, setModalText] = React.useState("Content of the modal");
   const [image, setImage] = React.useState(null);
   const [url, setUrl] = React.useState(null);
+  const [errors, setErrors] = React.useState(null);
 
   const [data, setData] = React.useState({
     name: null,
@@ -39,16 +40,22 @@ const ModalAddIngredient = () => {
   };
 
   const handleOk = () => {
-    if (!data.name || !data.price || !data.category || !image) {
-      alert("vous devez remplir touts les champs");
+    if (!data.name) {
+      setErrors("Veuillez enter le nom de l'ingédient");
+    } else if (!data.price) {
+      setErrors("Veuillez enter le prix de l'ingédient");
+    } else if (!data.category) {
+      setErrors("Veuillez choisir la category de l'ingédient");
+    } else if (!image) {
+      setErrors("Veuillez choisir l'image de l'ingédient");
     } else {
       setModalText("The modal will be closed after two seconds");
       setConfirmLoading(true);
       dispatch(createIngredient(data, image));
 
       setTimeout(() => {
-/*         dispatch(getIngredients())
- */        setVisible(false);
+        /*         dispatch(getIngredients())
+         */ setVisible(false);
         setConfirmLoading(false);
       }, 2000);
     }
@@ -76,11 +83,9 @@ const ModalAddIngredient = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  
-
   return (
     <>
-      <Button className="button ingredientButton" onClick={showModal}>
+      <Button className="btn" onClick={showModal}>
         Ajouter un ingrédient
       </Button>
       <Modal
@@ -100,9 +105,11 @@ const ModalAddIngredient = () => {
               label="name"
               type="text"
               onChange={handleChange}
+              onFocus={() => setErrors(null)}
               fullWidth
               required
             />
+            {!data.name ? <h5 className="errors">{errors}</h5> : null}
 
             <TextField
               autoFocus
@@ -112,6 +119,7 @@ const ModalAddIngredient = () => {
               label="description"
               type="text"
               onChange={handleChange}
+              onFocus={() => setErrors(null)}
               fullWidth
             />
 
@@ -123,9 +131,11 @@ const ModalAddIngredient = () => {
               label="prix"
               type="Number"
               onChange={handleChange}
+              onFocus={() => setErrors(null)}
               fullWidth
               required
             />
+            {!data.price ? <h5 className="errors">{errors}</h5> : null}
 
             <FormControl
               as="select"
@@ -133,6 +143,7 @@ const ModalAddIngredient = () => {
               name="category"
               defaultValue="category"
               onChange={handleChange}
+              onFocus={() => setErrors(null)}
               placeholder="choisissez votre mode de livraison"
               required
             >
@@ -144,7 +155,9 @@ const ModalAddIngredient = () => {
                     </>
                   ))
                 : null}
+            
             </FormControl>
+            {!data.category ? <h5 className="errors">{errors}</h5> : null}
 
             <div class="file file--upload">
               <label></label>
@@ -153,6 +166,7 @@ const ModalAddIngredient = () => {
                 type="file"
                 required
                 onChange={selectImageToUpload}
+                onFocus={() => setErrors(null)}
               ></input>
 
               {image ? (
@@ -161,7 +175,9 @@ const ModalAddIngredient = () => {
                   style={{ height: "100px", width: "150px", padding: "15px" }}
                   alt=""
                 />
-              ) : null}
+              ) : (
+                <h5 className="errors">{errors}</h5>
+              )}
             </div>
           </form>
         </DialogContent>

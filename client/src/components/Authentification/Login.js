@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import '../../assets/style/login.css'
 import Loading from "../Loading";
 import Navigation from "../LandingPag.js/navigation";
+import { Button } from "react-bootstrap";
 
 
 
@@ -44,7 +45,7 @@ const Login = ({history}) => {
   
   return (
  <>
- 
+ <Navigation/>
 <div className="container h-100">
   <div className="row h-100 justify-content-center align-items-center">
     <form className="col-md-9">
@@ -86,8 +87,9 @@ const Login = ({history}) => {
 
               <button 
               onClick={submitHandler} 
-              className="btn btn-success btn-block shadow border-0 py-2 text-uppercase ">
-                Login
+            
+              className=" btn-success btn-block shadow border-0 py-2 text-uppercase " >
+               se connecter
               </button>
               <p className="text-center mt-5">
                 vous n'êtes pas encore inscrit?

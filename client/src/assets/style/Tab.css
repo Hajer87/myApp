@@ -21,7 +21,7 @@ table {
   margin: 25px 0;
   padding-left:100px;
    padding-right: 50px; 
-  font-size: 0.9em;
+  font-size: 2em;
   font-family: 'Prompt', sans-serif;
   letter-spacing: 3px;
   font-size:medium;
@@ -39,6 +39,7 @@ table thead tr input{
 }
 table th, table td {
   padding: 12px 15px;
+  
 }
 
 table tbody tr {
@@ -50,6 +51,8 @@ table tbody tr:nth-of-type(even) {
 table tbody tr:last-of-type {
   border-bottom: 2px solid #009879;
 }
-li{
-  padding:10px;
-}
+/* li{
+ display: grid;
+ grid-template-columns: 70% 10% 10% 10%;
+  list-style-type: none;
+} */

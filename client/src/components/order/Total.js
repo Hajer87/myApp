@@ -33,7 +33,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Total({ setData, data }) {
+export default function Total({ setData, data, setErrors }) {
   const history = useHistory();
 
   const orders = useSelector((state) => state.commandeReducer.commandes);
@@ -56,11 +56,19 @@ export default function Total({ setData, data }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    if(data.livraison!==null)
-   { setOpen(true);
-    setData({ ...data, total: price });}
-    else
-    alert('veuillez remplir toutes les informations nécessaires')
+   
+  
+     if(!data.livraison)
+   setErrors('veuillez saisir le mode de livraison')
+   else if (!data.date)
+   setErrors('veuillez saisir la date de livraison')
+   else if (!data.heure)
+   setErrors("veuillez saisir l'heure de livraison")
+   else 
+{setOpen(true);
+  setData({ ...data, total: price })}
+
+
   };
 
   const handleClose = () => {
@@ -77,10 +85,11 @@ export default function Total({ setData, data }) {
     setOpen(false);
     history.push("/checkout");
   };
+
   return (
     <div>
       <button
-        
+        className="btn"
         variant="secondary"
         size="lg"
         block

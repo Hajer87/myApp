@@ -110,9 +110,9 @@ console.log(req.body)
       image: `${req.protocol}://${req.get('host')}/uploads/ingredients/${req.file.filename}`
     } 
     : 
-    { ...req.body };
+     {...JSON.parse(req.body.info)};
     console.log(req.params.id)
-  await Ingredient.findByIdAndUpdate({ _id: req.params.id }, {...body} )
+  await Ingredient.findByIdAndUpdate({ _id: req.params.id }, body)
     .then(() => res.status(200).json({ message: 'Ingredient modifié !'}))
   }catch (err) {
     console.log(err.message);

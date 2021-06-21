@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { log_out } from "../../Redux/Actions/AuthActions";
 import { BsBoxArrowRight, BsHouseDoor } from "react-icons/bs";
 import { FaCartPlus } from "react-icons/fa";
+import '../../assets/style/navigation.css'
 
 const Navigation = (props) => {
   const dispatch = useDispatch();
@@ -19,23 +20,29 @@ const Navigation = (props) => {
         <Nav className="mr-auto">
        
              
-               <Nav.Link href="/" className="page-scroll">
-               Acceuil
+               <Nav.Link className="btnNav"  href="/" /* className="page-scroll" */>
+               <span>Acceuil</span>
               </Nav.Link>
           
             </Nav>
             <Nav>
             
-            <Nav.Link href="/panier" className="page-scroll">
-                <FaCartPlus />
+            <Nav.Link className="btnNav"  href="/panier" >
+               {/*  <FaCartPlus /> */}
+              
+   <span>
+        Panier
+        
+        </span>
+       {/*  <span class="count">{props.count}</span> */}
                 </Nav.Link>
           
 
             {Auth.isAuth  ? (
             <>
-            <Nav.Link href="/profile"> Profile</Nav.Link>
+            <Nav.Link className="btnNav"  href="/profile"> <span>Mon Profile</span></Nav.Link>
                 
-                  <Nav.Link
+                  <Nav.Link className="btnNav" 
                     onClick={() => {
                       dispatch(log_out());
                     }}
@@ -47,10 +54,10 @@ const Navigation = (props) => {
             ) : (
               <>
               
-                  <Nav.Link href="/signUp">Enregistrement</Nav.Link>
+                  <Nav.Link className="btnNav"  href="/signUp"><span>Enregistrement</span></Nav.Link>
                 
                 
-                  <Nav.Link href="/Login">se connecter</Nav.Link>
+                  <Nav.Link  className="btnNav" href="/Login"><span>se connecter</span></Nav.Link>
                 
               </>
             )}
